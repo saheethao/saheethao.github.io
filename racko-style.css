@@ -27,6 +27,25 @@ canvas {
     background: #90b155;
     cursor: default;
 }
+
+#end-button {
+    background: #a0c55f;
+    max-width: 25%;
+    margin: auto;
+    margin-top: 100px;
+    margin-bottom: 50px;
+    text-align: center;
+    padding: 10px;
+    font-size: 50px;
+    border: solid #88b140 3px;
+    border-radius: 20px;
+}
+#end-button:hover {
+    background: #90b155;
+    cursor: default;
+}
+
+
 .stroke {
     text-shadow:
             -1px -1px 0 #000,
