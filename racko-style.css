@@ -137,4 +137,11 @@ canvas {
 .appear {
     display: inline-block !important;
 }
+#feedback {
+    border: solid #000 1px;
+    height: 100px;
+    width: 400px;
+    margin: auto;
+    color: #000;
+}
 
