@@ -23,6 +23,8 @@ $(document).ready(function() {
     var hasSwapped = false;
     var hasDrawn = false;
 
+    var victory = false;
+
 
 
     var isPlayersTurn = true;
@@ -47,11 +49,13 @@ $(document).ready(function() {
 
     $("#mary").click(function() {
         difficulty = 2;
+        levelOneSetup();
         startGame();
     });
 
     $("#sahee").click(function() {
         difficulty = 3;
+        levelOneSetup();
         startGame();
     });
 
@@ -147,22 +151,29 @@ $(document).ready(function() {
     $("#draw-space").on("click", "#deck", function() {
         soundVeryLow.play();
         console.log("User clicked on the deck.");
-        if (handNum != 0) { //a card is picked already, reset hand
-            console.log("A card was previously selected, but is now deselected.");
-            $("#player-hand div").removeClass("perm-shadow"); //removes shadow
-            handNum = 0; //sets
+        if (deckSelected) {
+            console.log("The deck was previously selected, but is now deselected.");
+            deckSelected = false;
+            $("#draw-space #deck").removeClass("perm-shadow"); //unselects deck
+        } else {
+            if (handNum != 0) { //a card is picked already, reset hand
+                console.log("A card was previously selected, but is now deselected.");
+                $("#player-hand div").removeClass("perm-shadow"); //removes shadow
+                handNum = 0; //sets
+            }
+
+            if (leftPileSelected || rightPileSelected) {
+                console.log("A pile was previously selected, but is now deselected.");
+                $("#draw-space div").removeClass("perm-shadow");
+                leftPileSelected = false;
+                rightPileSelected = false;
+            }
+            console.log("Selecting the deck.");
+
+            $(this).addClass("perm-shadow");
+            deckSelected = true;
         }
 
-        if (leftPileSelected || rightPileSelected) {
-            console.log("A pile was previously selected, but is now deselected.");
-            $("#draw-space div").removeClass("perm-shadow");
-            leftPileSelected = false;
-            rightPileSelected = false;
-        }
-        console.log("Selecting the deck.");
-
-        $(this).addClass("perm-shadow");
-        deckSelected = true;
 
 
         console.log("leftPileSelected is " + leftPileSelected);
@@ -211,47 +222,7 @@ $(document).ready(function() {
             $("#player-hand .card").removeClass("perm-shadow");
 
         } else if (deckSelected && !hasDrawn) { //if deck was selected
-            hasDrawn = true;
-            leftPileSelected = isLeftPile;
-            rightPileSelected = !isLeftPile;
-            //draw a card
-            console.log("Deck was previously selected. Now drawing deck.")
-            var pileNum = 0;
-            //check to see if deck is empty
-            if (numberSet[0] == null) {
-                console.log("Deck is empty. Now reshuffleing.")
-                pileNum = reshuffleCards();
-            } else {
-                console.log("Deck has cards still.");
-            }
-            //continue drawing a card
-            console.log("Continuing drawing a card.")
-            var cardDraw = numberSet.pop();
-            console.log("Drawing card: " + cardDraw);
-            if (rightPileSelected) {
-                //if right pile was selected, remove last elemnt of numberSet and set it as right pile
-                console.log("Right pile was selected. Now setting text...")
-                $("#pile-right span").text(cardDraw);
-            } else if (leftPileSelected) {
-                //if right pile was selected, remove last elemnt of numberSet and set it as left pile
-                console.log("Left pile was selected. Now setting text...")
-                $("#pile-left span").text(cardDraw);
-            }
-
-            //if pileNum is a valid number, add it as the last element and shuffle the array
-            if (pileNum != 0) {
-                console.log("Adding left over pileNum.")
-                numberSet.push(pileNum);
-                numberSet = shuffle(numberSet);
-            }
-
-            console.log("Deselecting all.");
-            //Deselect everything
-            rightPileSelected = false;
-            leftPileSelected = false;
-            deckSelected = false;
-            $("#draw-space div").removeClass("perm-shadow");
-            console.log(numberSet);
+            drawCard(isLeftPile);
         } else if (deckSelected && hasDrawn){
             console.log("Deselecting all.");
             //Deselect everything
@@ -325,6 +296,8 @@ $(document).ready(function() {
             playerSet.push(numberSet.pop());
             cpuSet.push(numberSet.pop());
         }
+
+        difficulty = 2;
         console.log(playerSet);
         console.log(cpuSet);
         console.log(numberSet);
@@ -372,6 +345,8 @@ $(document).ready(function() {
         $("#marker-top div").addClass("appear");
         $("#marker-bottom div").addClass("appear");
         $("#draw-space div").addClass("appear");
+
+        $("#feedback").addClass("appear");
     }
 
     function reshuffleCards() {
@@ -468,11 +443,65 @@ $(document).ready(function() {
         checkWin();
     }
 
+    function drawCard(isLeftPile) {
+        hasDrawn = true;
+        leftPileSelected = isLeftPile;
+        rightPileSelected = !isLeftPile;
+        //draw a card
+        console.log("Deck was previously selected. Now drawing deck.")
+        var pileNum = 0;
+        //check to see if deck is empty
+        if (numberSet[0] == null) {
+            console.log("Deck is empty. Now reshuffleing.")
+            pileNum = reshuffleCards();
+        } else {
+            console.log("Deck has cards still.");
+        }
+        //continue drawing a card
+        console.log("Continuing drawing a card.")
+        var cardDraw = numberSet.pop();
+        console.log("Drawing card: " + cardDraw);
+        if (rightPileSelected) {
+            //if right pile was selected, remove last elemnt of numberSet and set it as right pile
+            console.log("Right pile was selected. Now setting text...")
+            $("#pile-right span").text(cardDraw);
+        } else if (leftPileSelected) {
+            //if right pile was selected, remove last elemnt of numberSet and set it as left pile
+            console.log("Left pile was selected. Now setting text...")
+            $("#pile-left span").text(cardDraw);
+        }
+
+        //if pileNum is a valid number, add it as the last element and shuffle the array
+        if (pileNum != 0) {
+            console.log("Adding left over pileNum.")
+            numberSet.push(pileNum);
+            numberSet = shuffle(numberSet);
+        }
+
+        console.log("Deselecting all.");
+        //Deselect everything
+        rightPileSelected = false;
+        leftPileSelected = false;
+        deckSelected = false;
+        $("#draw-space div").removeClass("perm-shadow");
+        console.log(numberSet);
+    }
+
     function checkWin() {
         var win = inOrder();
 
-        if(win) {
-            console.log("WIN!");
+        if (win && isPlayersTurn) {
+            console.log("Player wins! Computer loses.");
+            feedback = "Player wins! Computer loses.";
+            feedback += " The computers hand: ";
+            for (var i = 10; i < 20; i += 1) {
+                feedback += cpuSet[i] + "|";
+            }
+            for (var i = 0; i < 10; i += 1) {
+                feedback += cpuSet[i] + "|";
+            }
+            $("#feedback").text(feedback);
+            $("#end-turn").addClass("hidden");
         }
     }
 
@@ -514,7 +543,7 @@ $(document).ready(function() {
                 nextNum = parseInt(nextNum);
 
                 if (nextNum < currentNum) {
-                    console.log("Failure at " + i + ". " + nextNum + " < " + currentNum);
+                    console.log("Failure at 19. " + nextNum + " < " + currentNum);
                     return false;
                 } else {
                     console.log(i + ": " + num0 + " > " + num19);
@@ -524,38 +553,76 @@ $(document).ready(function() {
             return true;
 
         } else {
+            for (var i = 10; i < 19; i += 1) {
+                var currentNum = cpuSet[i];
+                var nextNum = cpuSet[i + 1];
+
+                if (nextNum < currentNum) {
+                    console.log("Failure at " + i + ". " + nextNum + " < " + currentNum);
+                    return false;
+                } else {
+                    console.log(i +": " + nextNum + " > " + currentNum);
+                }
+            }
+            var num19 = cpuSet[19];
+            var num0 = cpuSet[0];
+
+            if (num0 < num19) {
+                console.log("Failure at 19. " + num0 + " < " + num19);
+                return false;
+            } else {
+                console.log("19: " + num0 + " > " + num19);
+            }
+
+            for (var i = 0; i < 9; i += 1) {
+                var currentNum = cpuSet[i];
+                var nextNum = cpuSet[i + 1];
+
+                if (nextNum < currentNum) {
+                    console.log("Failure at " + i + ". " + nextNum + " < " + currentNum);
+                    return false;
+                } else {
+                    console.log(i +": " + nextNum + " > " + currentNum);
+                }
+            }
+
+            return true;
 
         }
     }
 
     function levelOneSetup() {
-        difficulty = 1;
 
         function searchIndex() {
             lowTarget = 0;
-            hightTarget = 0;
+            highTarget = 0;
             targetSuccess = false;
         };
         finder = [];
         for (var i = 0; i < 10; i += 1) {
             var index = new searchIndex();
             index.lowTarget = (i*5) + 1 + 50;
-            index.hightTarget = index.lowTarget + 4;
+            index.highTarget = index.lowTarget + 4;
             finder.push(index);
         }
         for (var i = 10; i < 20; i += 1) {
             var index = new searchIndex();
             index.lowTarget = (i*5) + 1 - 50;
-            index.hightTarget = index.lowTarget + 4;
+            index.highTarget = index.lowTarget + 4;
             finder.push(index);
         }
     }
     
     function startTurnCPU() {
+        console.log("CPU is starting its turn...");
         hasDrawn = false;
         hasSwapped = false;
         if (difficulty == 1) {
+            console.log("Level one selected.");
             levelOneCPU();
+        } else if (difficulty == 2) {
+            console.log("Level two selected.");
+            levelTwoCPU();
         }
     }
     
@@ -568,6 +635,7 @@ $(document).ready(function() {
         //sets numbers from left and right piles to zero
         var leftNum = $("#pile-left").text();
         var rightNum = $("#pile-right").text();
+        var feedback = "The computer ";
 
         console.log("leftNum: " + leftNum);
         console.log("rightNum: " + rightNum);
@@ -588,21 +656,280 @@ $(document).ready(function() {
         for (var i = 0; i < 20; i += 1) {
             var curNum = cpuSet[i];
             var low = finder[i].lowTarget;
-            var high = finder[i].hightTarget;
-            if (low <= curNum || curNum <= high) {
+            var high = finder[i].highTarget;
+            if (low <= curNum && curNum <= high) {
                 finder[i].targetSuccess = true;
+                console.log("At index " + i + " the number " + curNum + " satisfied the condition between " + low +  " and " +
+                high + ".");
             }
         }
 
         for (var i = 0; i < 20; i += 1) {
             var low = finder[i].lowTarget;
-            var high = finder[i].hightTarget;
-            if ( (low <= leftNum || leftNum <= high) && !finder[i].targetSuccess) {
+            var high = finder[i].highTarget;
+            if ( (low <= leftNum && leftNum <= high) && !finder[i].targetSuccess) {
                 finder[i].targetSuccess = true;
+                var cpuSetTemp = cpuSet[i];
+                cpuSet[i] = leftNum;
+                $("#pile-left span").text(cpuSetTemp);
+                hasSwapped = true;
+                feedback += "swapped their " + cpuSetTemp + " with a " + leftNum + ".";
+                break;
             }
         }
 
+        if (!hasSwapped) {
+            for (var i = 0; i < 20; i += 1) {
+                var low = finder[i].lowTarget;
+                var high = finder[i].highTarget;
+                if ( (low <= rightNum && rightNum <= high) && !finder[i].targetSuccess) {
+                    finder[i].targetSuccess = true;
+                    var cpuSetTemp = cpuSet[i];
+                    cpuSet[i] = rightNum;
+                    $("#pile-right span").text(cpuSetTemp);
+                    hasSwapped = true;
+                    feedback += "swapped their " + cpuSetTemp + " with a " + rightNum + ".";
+                    break;
+                }
+            }
+        }
 
+        if (!hasSwapped) {
+            var isLeftPile = Math.random() < 0.5;
+            drawCard(isLeftPile);
+            feedback += "drew a card. The computer ";
+            for (var i = 0; i < 20; i += 1) {
+                var low = finder[i].lowTarget;
+                var high = finder[i].highTarget;
+                if ( (low <= leftNum && leftNum <= high) && !finder[i].targetSuccess) {
+                    finder[i].targetSuccess = true;
+                    var cpuSetTemp = cpuSet[i];
+                    cpuSet[i] = leftNum;
+                    $("#pile-left span").text(cpuSetTemp);
+                    hasSwapped = true;
+                    feedback += "swapped their " + cpuSetTemp + " with a " + leftNum + ".";
+                    break;
+                }
+            }
+
+            if (!hasSwapped) {
+                for (var i = 0; i < 20; i += 1) {
+                    var low = finder[i].lowTarget;
+                    var high = finder[i].highTarget;
+                    if ( (low <= rightNum && rightNum <= high) && !finder[i].targetSuccess) {
+                        finder[i].targetSuccess = true;
+                        var cpuSetTemp = cpuSet[i];
+                        cpuSet[i] = rightNum;
+                        $("#pile-right span").text(cpuSetTemp);
+                        hasSwapped = true;
+                        feedback += "swapped their " + cpuSetTemp + " with a " + rightNum + ".";
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!hasSwapped) {
+            feedback += "passes.";
+        }
+
+        console.log(cpuSet);
+        var fail = false
+        for (var i = 0; i < 20; i += 1) {
+            if (!finder[i].targetSuccess) {
+                console.log("Target failure at " + i + ".")
+                fail = true;
+                break;
+            }
+        }
+        if (!fail) {
+            console.log("Player loses. Computer wins!");
+            feedback = "Player loses. Computer wins!";
+        }
+        $("#feedback").text(feedback);
+        //end turn
+        isPlayersTurn = true;
+        hasSwapped = false;
+        hasDrawn = false;
+    }
+
+    function levelTwoCPU() {
+        //var cpuSet = []; //Set of numbers the computer has
+        //var handNum = 0; //The number selected by the player
+        //var switchNum = 0; //The number in the pile selected
+        //finder[]
+        //get pile data
+        //sets numbers from left and right piles to zero
+        var leftNum = $("#pile-left").text();
+        var rightNum = $("#pile-right").text();
+        var feedback = "The computer ";
+
+        console.log("leftNum: " + leftNum);
+        console.log("rightNum: " + rightNum);
+
+        if (leftNum != "pile") {
+            leftNum = parseInt(leftNum);
+        } else {
+            leftNum = 0;
+        }
+
+        if (rightNum != "pile") {
+            rightNum = parseInt(rightNum);
+        } else {
+            rightNum = 0;
+        }
+
+        //set success
+        for (var i = 0; i < 20; i += 1) {
+            var curNum = cpuSet[i];
+            var low = finder[i].lowTarget;
+            var high = finder[i].highTarget;
+            if (low <= curNum && curNum <= high) {
+                finder[i].targetSuccess = true;
+                console.log("At index " + i + " the number " + curNum + " satisfied the condition between " + low +  " and " +
+                    high + ".");
+            }
+        }
+        //adjust
+        for (var i = 0; i < 20; i += 1) {
+            if (!finder[i].targetSuccess) {
+                if (i == 10) {
+                    if (finder[11].targetSuccess) {
+                        finder[10].highTarget = cpuSet[11] - 1;
+                        console.log("Changed index " + i + "'s highTarget to " + finder[i].highTarget + ".");
+                    }
+                } else if (i == 9) {
+                    if (finder[8].targetSuccess) {
+                        finder[9].lowTarget = cpuSet[8] + 1;
+                        console.log("Changed index " + i + "'s lowTarget to " + finder[i].lowTarget + ".");
+                    }
+                } else if (i == 0) {
+                    if (finder[1].targetSuccess) {
+                        finder[0].highTarget = cpuSet[1] - 1;
+                        console.log("Changed index " + i + "'s highTarget to " + finder[i].highTarget + ".");
+                    }
+                    if (finder[19].targetSuccess) {
+                        finder[0].lowTarget = cpuSet[19] + 1;
+                        console.log("Changed index " + i + "'s lowTarget to " + finder[i].lowTarget + ".");
+                    }
+                } else if (i == 19) {
+                    if (finder[0].targetSuccess) {
+                        finder[19].highTarget = cpuSet[0] - 1;
+                        console.log("Changed index " + i + "'s highTarget to " + finder[i].highTarget + ".");
+                    }
+                    if (finder[18].targetSuccess) {
+                        finder[19].lowTarget = cpuSet[18] + 1;
+                        console.log("Changed index " + i + "'s lowTarget to " + finder[i].lowTarget + ".");
+                    }
+                } else {
+                    if (finder[i + 1].targetSuccess) {
+                        finder[i].highTarget = cpuSet[i + 1] - 1;
+                        console.log("Changed index " + i + "'s highTarget to " + finder[i].highTarget + ".");
+                    }
+                    if (finder[i - 1].targetSuccess) {
+                        finder[i].lowTarget = cpuSet[i - 1] + 1;
+                        console.log("Changed index " + i + "'s lowTarget to " + finder[i].lowTarget + ".");
+                    }
+                }
+
+            }
+        }
+
+        for (var i = 0; i < 20; i += 1) {
+            var low = finder[i].lowTarget;
+            var high = finder[i].highTarget;
+            if ( (low <= leftNum && leftNum <= high) && !finder[i].targetSuccess) {
+                finder[i].targetSuccess = true;
+                var cpuSetTemp = cpuSet[i];
+                cpuSet[i] = leftNum;
+                $("#pile-left span").text(cpuSetTemp);
+                hasSwapped = true;
+                feedback += "swapped their " + cpuSetTemp + " with a " + leftNum + ".";
+                break;
+            }
+        }
+
+        if (!hasSwapped) {
+            for (var i = 0; i < 20; i += 1) {
+                var low = finder[i].lowTarget;
+                var high = finder[i].highTarget;
+                if ( (low <= rightNum && rightNum <= high) && !finder[i].targetSuccess) {
+                    finder[i].targetSuccess = true;
+                    var cpuSetTemp = cpuSet[i];
+                    cpuSet[i] = rightNum;
+                    $("#pile-right span").text(cpuSetTemp);
+                    hasSwapped = true;
+                    feedback += "swapped their " + cpuSetTemp + " with a " + rightNum + ".";
+                    break;
+                }
+            }
+        }
+
+        if (!hasSwapped) {
+            var isLeftPile = Math.random() < 0.5;
+            drawCard(isLeftPile);
+            feedback += "drew a card. The computer ";
+            for (var i = 0; i < 20; i += 1) {
+                var low = finder[i].lowTarget;
+                var high = finder[i].highTarget;
+                if ( (low <= leftNum && leftNum <= high) && !finder[i].targetSuccess) {
+                    finder[i].targetSuccess = true;
+                    var cpuSetTemp = cpuSet[i];
+                    cpuSet[i] = leftNum;
+                    $("#pile-left span").text(cpuSetTemp);
+                    hasSwapped = true;
+                    feedback += "swapped their " + cpuSetTemp + " with a " + leftNum + ".";
+                    break;
+                }
+            }
+
+            if (!hasSwapped) {
+                for (var i = 0; i < 20; i += 1) {
+                    var low = finder[i].lowTarget;
+                    var high = finder[i].highTarget;
+                    if ( (low <= rightNum && rightNum <= high) && !finder[i].targetSuccess) {
+                        finder[i].targetSuccess = true;
+                        var cpuSetTemp = cpuSet[i];
+                        cpuSet[i] = rightNum;
+                        $("#pile-right span").text(cpuSetTemp);
+                        hasSwapped = true;
+                        feedback += "swapped their " + cpuSetTemp + " with a " + rightNum + ".";
+                        break;
+                    }
+                }
+            }
+        }
+
+        if (!hasSwapped) {
+            feedback += "passes.";
+        }
+
+        console.log(cpuSet);
+        var fail = false
+        for (var i = 0; i < 20; i += 1) {
+            if (!finder[i].targetSuccess) {
+                console.log("Target failure at " + i + ".")
+                fail = true;
+                break;
+            }
+        }
+        if (!fail) {
+            console.log("Player loses. Computer wins!");
+            feedback = "Player loses. Computer wins!";
+            feedback += " The computers hand: ";
+            for (var i = 10; i < 20; i += 1) {
+                feedback += cpuSet[i] + "|";
+            }
+            for (var i = 0; i < 10; i += 1) {
+                feedback += cpuSet[i] + "|";
+            }
+            $("#end-turn").addClass("hidden");
+        }
+        $("#feedback").text(feedback);
+        //end turn
+        isPlayersTurn = true;
+        hasSwapped = false;
+        hasDrawn = false;
     }
 
 
