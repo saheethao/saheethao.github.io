@@ -180,7 +180,7 @@ $(document).ready(function() {
 
     //Pile click
     $("#draw-space").on("click", ".pile", function() {
-        sound1.play();
+        soundHigh.play();
         //checks the pile clicked on
         var isLeftPile = $(this).attr("id") == "pile-left";
         if (isLeftPile) {
@@ -534,6 +534,7 @@ $(document).ready(function() {
         function searchIndex() {
             lowTarget = 0;
             hightTarget = 0;
+            targetSuccess = false;
         };
         finder = [];
         for (var i = 0; i < 10; i += 1) {
@@ -551,6 +552,8 @@ $(document).ready(function() {
     }
     
     function startTurnCPU() {
+        hasDrawn = false;
+        hasSwapped = false;
         if (difficulty == 1) {
             levelOneCPU();
         }
@@ -560,6 +563,7 @@ $(document).ready(function() {
         //var cpuSet = []; //Set of numbers the computer has
         //var handNum = 0; //The number selected by the player
         //var switchNum = 0; //The number in the pile selected
+        //finder[]
         //get pile data
         //sets numbers from left and right piles to zero
         var leftNum = $("#pile-left").text();
@@ -580,7 +584,25 @@ $(document).ready(function() {
             rightNum = 0;
         }
 
-        
+        //set success
+        for (var i = 0; i < 20; i += 1) {
+            var curNum = cpuSet[i];
+            var low = finder[i].lowTarget;
+            var high = finder[i].hightTarget;
+            if (low <= curNum || curNum <= high) {
+                finder[i].targetSuccess = true;
+            }
+        }
+
+        for (var i = 0; i < 20; i += 1) {
+            var low = finder[i].lowTarget;
+            var high = finder[i].hightTarget;
+            if ( (low <= leftNum || leftNum <= high) && !finder[i].targetSuccess) {
+                finder[i].targetSuccess = true;
+            }
+        }
+
+
     }
 
 
