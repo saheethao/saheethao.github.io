@@ -4,7 +4,6 @@
     <meta charset="UTF-8">
     <title>Zzzz</title>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
-    <link rel="stylesheet" href="racko-style.css" />
     <link href="https://fonts.googleapis.com/css?family=Chelsea+Market" rel="stylesheet">
     <script>
         function startTime() {
@@ -63,7 +62,7 @@
                 }
             }
 
-            if (hour > 24 - 6) {
+            if (hour > 24 - 6 || hour < 0) {
                 text = "Mary it's past your bedtime!!"
             }
             document.getElementById('txt').innerHTML =
@@ -85,7 +84,8 @@
     </script>
     <style>
         body {
-            background-image: url(https://purplesouldotblog.files.wordpress.com/2017/02/img_8064.jpg);
+            background-image: url(http://cdn.wallpapersafari.com/66/60/gKLvVR.jpg);
+            background-repeat: no-repeat;
             background-size: cover;
             font-family: 'Chelsea Market', cursive;;
         }
