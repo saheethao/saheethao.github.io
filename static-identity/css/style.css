@@ -109,11 +109,11 @@ hr {
     visibility: visible;
 }
 
-#help {
+#help, #advanced {
     margin-top: 10px;
     text-decoration: underline;
 }
-#help:hover {
+#help:hover, #advanced:hover {
     color: #c2c2c2;
     cursor: pointer;
 }
@@ -189,4 +189,9 @@ hr {
 #overview-section p {
     margin-top: 40px !important;
     margin-bottom: 40px !important;
+}
+
+.checkbox-style {
+    position: relative;
+    top: 2px;
 }

@@ -34,11 +34,15 @@ $(function () {
     $('#main .submit').click(function() {
         if (setUser()) {
             console.log('OK');
+            advancedSettings();
             var gameMax = max;
             gameArray = [];
+            if (max % 2 == 0) {
+                gambler = false;
+            }
             if (!gambler) {
 
-            } else if (max % 2 == 1 || gambler) {
+            } else if (gambler) {
                 console.log('pushing gambler...');
                 gameArray.push("gambler");
                 gameMax -= 1;
@@ -169,9 +173,76 @@ $(function () {
         }
     });
 
+    $('#advanced').click(function() {
+        toggle($('#advanced-section'));
+    });
+    function advancedSettings() {
+        var code = $('#advanced-code').val();
+        console.log(code.length);
+        if (code.length == 13) {
+            console.log('code inputed');
+            docAndEngi = code.charAt(0);
+            butlerAndMaid = code.charAt(1);
+            romAndJul = code.charAt(2);
+            intAndVict = code.charAt(3);
+            rivalAndSurv = code.charAt(4);
+            snipTarDec = code.charAt(5);
+            heroAndVill = code.charAt(6);
+            clone = code.charAt(7);
+            robot = code.charAt(8);
+            shyGuy = code.charAt(9);
+            coyBoy = code.charAt(10);
+            spy = code.charAt(11);
+            gambler = code.charAt(12);
+
+            gambler = verify(gambler);
+            docAndEngi = verify(docAndEngi);
+            butlerAndMaid = verify(butlerAndMaid);
+            romAndJul = verify(romAndJul);
+            intAndVict = verify(intAndVict);
+            rivalAndSurv = verify(rivalAndSurv);
+            snipTarDec = verify(snipTarDec);
+            heroAndVill = verify(heroAndVill);
+
+        } else {
+            docAndEngi = $('#0').is(':checked');
+            butlerAndMaid = $('#1').is(':checked');
+            romAndJul = $('#2').is(':checked');
+            intAndVict = $('#3').is(':checked');
+            rivalAndSurv = $('#4').is(':checked');
+            snipTarDec = $('#5').is(':checked');
+            heroAndVill = $('#6').is(':checked');
+
+            clone = $('#7').val();
+            robot = $('#8').val();
+            shyGuy = $('#9').val();
+            coyBoy = $('#10').val();
+            spy = $('#11').val();
+        }
+
+
+
+        console.log(docAndEngi);
+        console.log(butlerAndMaid);
+        console.log(romAndJul);
+        console.log(intAndVict);
+        console.log(rivalAndSurv);
+        console.log(snipTarDec);
+        console.log(heroAndVill);
+        console.log(clone);
+        console.log(robot);
+        console.log(shyGuy);
+        console.log(coyBoy);
+        console.log(spy);
+    }
+    function verify(e) {
+        return e == 1;
+    }
+
     $('#help').click(function() {
         renderHelp();
     });
+
 
 
 
@@ -202,7 +273,7 @@ $(function () {
         console.log('ID: ' + id);
         console.log('Name: ' + name);
 
-        if (!(mode || max  || id || name)) {
+        if (!( max  || id || name)) {
             console.log('There is at least one missing input');
             return false;
         } else {
@@ -222,6 +293,7 @@ $(function () {
     }
     
     function renderCard(id) {
+        $('#username').text(name);
         role = gameArray[id];
         if (role == 'president' || role == 'president-teammate' || role == 'doctor'
             || role == 'coy-boy-president' || role == 'shy-guy-president' || role == 'spy-president'){

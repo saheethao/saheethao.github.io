@@ -20,49 +20,106 @@
     <h1>Welcome</h1>
     <hr>
     <form action="">
-        <div class="form-group col-xs-offset-3 col-xs-6">
+        <div>
+
+        </div>
+        <div class="form-group col-xs-offset-2 col-xs-8">
             <input type="number" class="form-control textfield" id="max-input" placeholder="Enter your total players" maxlength="10">
         </div>
-        <div class="form-group col-xs-offset-3 col-xs-6">
+        <div class="form-group col-xs-offset-2 col-xs-8">
             <input type="number" class="form-control textfield" id="id-input" placeholder="Enter your number" maxlength="10">
         </div>
-        <div class="form-group col-xs-offset-3 col-xs-6">
+        <div class="form-group col-xs-offset-2 col-xs-8">
             <input type="text" class="form-control textfield" id="name-input" placeholder="Enter your name" maxlength="10">
         </div>
 
         <div class="col-xs-12">
-            <p class="button col-xs-offset-3 col-xs-6 submit">Submit</p>
+            <p class="button col-xs-offset-2 col-xs-8 submit">Submit</p>
         </div>
     </form>
     <hr>
 
     <p id="advanced" class="bottom">Advanced</p>
+    <div id="advanced-section" class="hidden">
+        <form>
+            <div class="col-xs-offset-1 col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="0"><span>Doctor and Engineer</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="1"><span>Butler and Maid</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="2"><span>Romeo and Juliet</span>
+            </div>
+
+            <div class="col-xs-offset-1 col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="3"><span>Intern And Victim</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="4"><span>Rival And Survivor</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="5"><span>Sniper, Target, Decoy</span>
+            </div>
+            <div class="col-xs-offset-3 col-xs-4">
+                <input type="checkbox" class="checkbox-style" id="6"><span>Hero and Villain</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="gambler"><span>Gambler</span>
+            </div>
+
+            <div class="form-group col-xs-offset-1 col-xs-3">
+                <input type="text" class="form-control textfield" id="7" placeholder="Number of Clones" maxlength="10">
+            </div>
+            <div class="form-group col-xs-3">
+                <input type="text" class="form-control textfield" id="8" placeholder="Number of Robots" maxlength="10">
+            </div>
+            <div class="form-group col-xs-3">
+                <input type="text" class="form-control textfield" id="9" placeholder="Number of Shy Guys" maxlength="10">
+            </div>
+
+            <div class="form-group col-xs-offset-3 col-xs-3">
+                <input type="text" class="form-control textfield" id="10" placeholder="Number of Coy Boys" maxlength="10">
+            </div>
+
+            <div class="form-group col-xs-3">
+                <input type="text" class="form-control textfield" id="11" placeholder="Number of Spies" maxlength="10">
+            </div>
+
+            <p class="col-xs-12" style="margin: 20px 0px">OR ENTER A CODE</p>
+
+            <div class="form-group col-xs-offset-2 col-xs-8">
+                <input type="text" class="form-control textfield" id="advanced-code" placeholder="Enter code">
+            </div>
+            <p class="col-xs-12">Make sure there are enough players and even number of Coys, Shys, and Spies</p>
+        </form>
+    </div>
 </section>
 
 <section id="role-side" class="noselect hidden">
-    <p>Name: </p> <span id="username"></span>
-        <div id="show" class="hidden col-xs-offset-3 col-xs-6">
+    <p style="color: #fff; margin-top: 50px; font-size: 28px;">Name: <span id="username"></span></p>
+    <div id="show" class="hidden col-xs-offset-2 col-xs-8">
             <h2>You are part of team</h2>
             <h2 class="" id="team-h2"></h2>
             <p><img src="image/" class="icon"></p>
 
-            <div id="role" class="col-xs-offset-3 col-xs-6 hidden">
+            <div id="role" class="col-xs-offset-2 col-xs-8 hidden">
                 <p>Your role:</p>
                 <p id="role-p"></p>
             </div>
             <p class="col-xs-12"><img src="image/" class="icon"></p>
 
-            <p class="button col-xs-offset-4 col-xs-4" id="show-role">Show/Hide Role</p>
-            <p class="button col-xs-offset-3 col-xs-6" id="hide-button">Hide Card</p>
+            <p class="button col-xs-offset-3 col-xs-6" id="show-role">Show/Hide Role</p>
+            <p class="button col-xs-offset-2 col-xs-8" id="hide-button">Hide Card</p>
         </div>
 
         <div id="hide" class="visible col-xs-offset-3 col-xs-6">
-            <p class="button col-xs-offset-3 col-xs-6" id="show-button">Show Card</p>
+            <p class="button col-xs-offset-2 col-xs-8" id="show-button">Show Card</p>
         </div>
 </section>
-<p id="help" class="bottom noselect">Help</p>
+<p id="help" class="bottom noselect col-xs-12">Help</p>
 
-<section id="help-menu" class="container hidden">
+<section id="help-menu" class="container hidden col-xs-12">
     <h1>Help Menu</h1>
     <p class="button col-xs-3" id="overview-button">How to Play</p>
     <p class="button col-xs-offset-1 col-xs-3" id="time-button">Time/Leadership</p>
