@@ -48,7 +48,7 @@ p {
 }
 hr {
     width: 50%;
-    margin: 20px auto;
+    margin: auto;
 }
 
 .button {
@@ -109,84 +109,41 @@ hr {
     visibility: visible;
 }
 
-#help {
-    margin-top: 10px;
-    text-decoration: underline;
-}
-#help:hover {
-    color: #c2c2c2;
-    cursor: pointer;
+
+#card-container {
+    perspective: 800;
 }
 
+.card {
 
-#role-side div {
-    background: #fff;
-    border-radius: 10px;
-    padding: 0px 10px 10px 10px;
-    border: solid 3px gray;
+
+    background: #e4e4e4;
+    border-radius: 20px;
+    transition: all 1s ease;
+    transform-style: preserve-3d;
+    padding: 120px 0px;
 }
+.front, .back {
+    position: absolute;
+    margin-left: auto;
+    margin-right: auto;
+    left: 0;
+    right: 0;
 
-#role-side p, #role-side h2 {
-    font-family: 'Cutive', serif;
+    backface-visibility: hidden;
+}
+.back {
+    transform: rotateY(180deg);
+}
+.card p {
+    color: #000;
     text-align: center;
-    color: black;
 }
 
-#role-side .button {
-    margin-top: 20px;
-    padding: 10px;
-    border: solid 1px #000;
-    -webkit-touch-callout: none; /* iOS Safari */
-    -webkit-user-select: none; /* Safari */
-    -khtml-user-select: none; /* Konqueror HTML */
-    -moz-user-select: none; /* Firefox */
-    -ms-user-select: none; /* Internet Explorer/Edge */
-    user-select: none; /* Non-prefixed version, currently
-                                  supported by Chrome and Opera */
-
+.flipped {
+    transform: rotateY(180deg);
 }
-#role-side .button:hover {
-    background: #d2d2e1;
-    cursor: default;
+.ui-loader {
+    display: none;
 }
 
-
-.icon {
-    width: 50px;
-}
-
-#role {
-    border: solid 1px #000 !important;
-}
-
-
-
-.team-president {
-    color: #699FD5 !important;
-    border-color: #3C56A6 !important;
-}
-
-.team-bomber {
-    color: #EC1F2B !important;
-    border-color: #551112 !important;
-}
-
-.team-neutral {
-    color: #949494;
-    color: #636565;
-}
-
-#help-menu {
-    color: #fff;
-}
-#help-menu p {
-    font-size: 18px;
-}
-.active {
-    background: #373737;
-}
-
-#overview-section p {
-    margin-top: 40px !important;
-    margin-bottom: 40px !important;
-}
