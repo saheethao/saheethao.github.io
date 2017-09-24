@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>BANG! The dice game</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+    <section class="container">
+        <h1>BANG! The dice game</h1>
+
+        <h2>Dice</h2>
+
+        <ul>
+            <li>
+                1 - Close shot:  Choose the player next to you on your left or right (1 position away).
+                That player loses one life point.
+            </li>
+            <li>
+                2 - Long shot:  Choose the player 2 positions away on your left or right. That player loses one life point.
+            </li>
+            <li>
+                3 - Arrow: You must resolve this die immediately when rolled.
+                Take one arrow token (one per arrow rolled) and keep it in front of you.
+                You may roll this die again if you have re-rolls left. If you take the last arrow, each player loses
+                one life point for each arrow they have. Then all players discard their arrows. Resume your turn.
+            </li>
+            <li>
+                4 - Dynamite: This die cannot be re-rolled. If you roll three or more Dynamites, your turn ends immediately
+                and you lose one life point. But, all your other dice results are still resolved as normal.
+            </li>
+            <li>
+                5 -  Beer: Choose ANY player. That player gains one life point. A player can never gain more life points
+                than the number they had at the beginning of the game.
+            </li>
+            <li>
+                6 - Gatling: If you roll three or more Gatlings you activate the Gatling Gun.
+                Each of the other players loses one life point. Also, you discard all of your arrows.
+            </li>
+        </ul>
+
+        <h2>Role cards</h2>
+
+        <ul>
+            <li>
+                K - Sheriff
+            </li>
+            <li>
+                Any Number - Outlaw
+            </li>
+            <li>
+                A - Renegade
+            </li>
+            <li>
+                J - Deputy
+            </li>
+        </ul>
+
+        <h2>Character Cards</h2>
+
+        <ul>
+            <li>
+                A♠ - BART CASSIDY (8): You may take an arrow instead of losing a life point (except to Indians or Dynamite).
+            </li>
+            <li>
+                2♠ - BLACK JACK (8): You may re-roll dynamites (unless if you roll three or more!).
+            </li>
+            <li>
+                3♠ - CALAMITY JANET (8): You can use "close shots" as "long shots" and vice-versa
+            </li>
+            <li>
+                4♠ - EL GRINGO (7): When a player makes you lose one or more life points, he must take an arrow.
+            </li>
+            <li>
+                5♠ - JESSE JONES (9): If you have four life points or less, you gain two if you use "beer" for yourself
+            </li>
+            <li>
+                6♠ - JOURDONNAIS (7): You never lose more than one life point to Indians.
+            </li>
+            <li>
+                7♠ - KIT CARLSON (7): For each "gatling" you may discard one arrow from any player.
+                You may choose to discard your own arrows. If you roll three "gatling", you discard all your own arrows,
+                plus three from any player(s) (of course, you still deal one damage to each other player).
+            </li>
+            <li>
+                8♠ - LUCKY DUKE (8): You may make one extra re-roll.
+            </li>
+
+            <hr>
+
+            <li>
+                A♥ - PAUL REGRET (9): You never lose life points to the Gatling Gun.
+            </li>
+            <li>
+                2♥ - PEDRO RAMIREZ (8): Each time you lose a life point, you may discard one of your arrows.
+            </li>
+            <li>
+                3♥ - ROSE DOOLAN (9): You may use "close shot" or "long shot" for players sitting one place further.
+            </li>
+            <li>
+                4♥ - SID KETCHUM (8): At the beginning of your turn, any player of your choice gains one life point.
+            </li>
+            <li>
+                5♥ - SLAB THE KILLER (8): Once per turn, you can use a "beer" to double a "close shot" or "long shot".
+                If you do, it does not provide any life points.
+            </li>
+            <li>
+                6♥ - SUZY LAFAYETTE (8): If you didn’t roll any "close shot" or "long shot" at the
+                end of your turn, you gain two life points.
+            </li>
+            <li>
+                7♥ - VULTURE SAM (9): Investigate each player who is holding a gun.
+            </li>
+            <li>
+                8♥ - WILLY THE KID (8): You only need to "gatling" use the Gatling Gun. (It can only be activated once).
+            </li>
+        </ul>
+        <a href="rules.pdf">For the official rules</a>
+
+    </section>
+</body>
+</html>
