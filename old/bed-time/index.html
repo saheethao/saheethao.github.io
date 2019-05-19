@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Zzzz</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <link href="https://fonts.googleapis.com/css?family=Chelsea+Market" rel="stylesheet">
+    <script>
+        function startTime() {
+            /*
+            var today = new Date();
+            var h = today.getHours();
+            var m = today.getMinutes();
+            var s = today.getSeconds();
+            m = checkTime(m);
+            s = checkTime(s);
+            */
+            var sec = secUntilBedTime();
+            sec = Math.floor(sec);
+            var min = Math.floor(sec / 60);
+            sec = sec % 60;
+
+            var hour = Math.floor(min / 60);
+            min = min % 60;
+
+            var text = "Mary's bed time is in ";
+            if (hour == 0) {
+
+            } else if (hour == 1) {
+                text += hour + " hour, "
+            } else {
+                text += hour + " hours, "
+            }
+
+            if (min == 0) {
+                if (min == 1) {
+                    text += min + " minute and "
+                } else {
+                    text += min + " minutes and "
+                }
+            } else {
+                if (min == 1) {
+                    text += min + " minute, and "
+                } else {
+                    text += min + " minutes, and "
+                }
+            }
+
+            if (min == 0) {
+               if (sec == 0) {
+                   text = "Right now!!";
+               } else if (sec == 1) {
+                   text += sec + " second!";
+               } else {
+                   text += sec + " seconds!";
+               }
+            } else {
+                if (sec == 1) {
+                    text += sec + " second.";
+                } else {
+                    text += sec + " seconds.";
+                }
+            }
+
+            if (hour > 24 - 6 || hour < 0) {
+                text = "Mary it's past your bedtime!!"
+            }
+            document.getElementById('txt').innerHTML =
+                text;
+            var t = setTimeout(startTime, 500);
+        }
+        function checkTime(i) {
+            if (i < 10) {i = "0" + i};  // add zero in front of numbers < 10
+            return i;
+        }
+        function secUntilBedTime() {
+            var midnight = new Date();
+            midnight.setHours( 22 );
+            midnight.setMinutes( 30 );
+            midnight.setSeconds( 0 );
+            midnight.setMilliseconds( 0 );
+            return ( midnight.getTime() - new Date().getTime() ) / 1000;
+        }
+    </script>
+    <style>
+        body {
+            background-image: url(http://cdn.wallpapersafari.com/66/60/gKLvVR.jpg);
+            background-repeat: no-repeat;
+            background-size: cover;
+            font-family: 'Chelsea Market', cursive;;
+        }
+        p {
+            text-align: center;
+            margin: 100px;
+            font-size: 48px;
+            color: #fff;
+        }
+        .stroke {
+            text-shadow:
+                    -1px -1px 0 #000,
+                    1px -1px 0 #000,
+                    -1px 1px 0 #000,
+                    1px 1px 0 #000;
+        }
+
+
+
+    </style>
+</head>
+
+<body onload="startTime()">
+
+<div>
+    <p id="txt" class="stroke">
+
+    </p>
+</div>
+</body>
+</html>

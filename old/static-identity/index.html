@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Static Identity</title>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/2.2.4/jquery.min.js"></script>
+    <script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/3.2.0/js/bootstrap.min.js"></script>
+
+    <link href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Passion+One" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Overpass" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Cutive" rel="stylesheet">
+    <link href="css/style.css" rel="stylesheet" />
+</head>
+<body>
+
+<section id="main" class="container visible">
+    <h1>Welcome</h1>
+    <hr>
+    <form action="">
+        <div>
+
+        </div>
+        <div class="form-group col-xs-offset-2 col-xs-8">
+            <input type="number" class="form-control textfield" id="max-input" placeholder="Enter your total players" maxlength="10">
+        </div>
+        <div class="form-group col-xs-offset-2 col-xs-8">
+            <input type="number" class="form-control textfield" id="id-input" placeholder="Enter your number" maxlength="10">
+        </div>
+        <div class="form-group col-xs-offset-2 col-xs-8">
+            <input type="text" class="form-control textfield" id="name-input" placeholder="Enter your name" maxlength="10">
+        </div>
+
+        <div class="col-xs-12">
+            <p class="button col-xs-offset-2 col-xs-8 submit">Submit</p>
+        </div>
+    </form>
+    <hr>
+
+    <p id="advanced" class="bottom">Advanced</p>
+    <div id="advanced-section" class="hidden">
+        <form>
+            <div class="col-xs-offset-1 col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="0"><span>Doctor and Engineer</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="1"><span>Butler and Maid</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="2"><span>Romeo and Juliet</span>
+            </div>
+
+            <div class="col-xs-offset-1 col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="3"><span>Intern And Victim</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="4"><span>Rival And Survivor</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="5"><span>Sniper, Target, Decoy</span>
+            </div>
+            <div class="col-xs-offset-3 col-xs-4">
+                <input type="checkbox" class="checkbox-style" id="6"><span>Hero and Villain</span>
+            </div>
+            <div class="col-xs-3">
+                <input type="checkbox" class="checkbox-style" id="gambler"><span>Gambler</span>
+            </div>
+
+            <div class="form-group col-xs-offset-1 col-xs-3">
+                <input type="text" class="form-control textfield" id="7" placeholder="Number of Clones" maxlength="10">
+            </div>
+            <div class="form-group col-xs-3">
+                <input type="text" class="form-control textfield" id="8" placeholder="Number of Robots" maxlength="10">
+            </div>
+            <div class="form-group col-xs-3">
+                <input type="text" class="form-control textfield" id="9" placeholder="Number of Shy Guys" maxlength="10">
+            </div>
+
+            <div class="form-group col-xs-offset-3 col-xs-3">
+                <input type="text" class="form-control textfield" id="10" placeholder="Number of Coy Boys" maxlength="10">
+            </div>
+
+            <div class="form-group col-xs-3">
+                <input type="text" class="form-control textfield" id="11" placeholder="Number of Spies" maxlength="10">
+            </div>
+
+            <p class="col-xs-12" style="margin: 20px 0px">OR ENTER A CODE</p>
+
+            <div class="form-group col-xs-offset-2 col-xs-8">
+                <input type="text" class="form-control textfield" id="advanced-code" placeholder="Enter code">
+            </div>
+            <p class="col-xs-12">Make sure there are enough players and even number of Coys, Shys, and Spies</p>
+        </form>
+    </div>
+</section>
+
+<section id="role-side" class="noselect hidden">
+    <p style="color: #fff; margin-top: 50px; font-size: 28px;">Name: <span id="username"></span></p>
+    <div id="show" class="hidden col-xs-offset-2 col-xs-8">
+            <h2>You are part of team</h2>
+            <h2 class="" id="team-h2"></h2>
+            <p><img src="image/" class="icon"></p>
+
+            <div id="role" class="col-xs-offset-2 col-xs-8 hidden">
+                <p>Your role:</p>
+                <p id="role-p"></p>
+            </div>
+            <p class="col-xs-12"><img src="image/" class="icon"></p>
+
+            <p class="button col-xs-offset-3 col-xs-6" id="show-role">Show/Hide Role</p>
+            <p class="button col-xs-offset-2 col-xs-8" id="hide-button">Hide Card</p>
+        </div>
+
+        <div id="hide" class="visible col-xs-offset-3 col-xs-6">
+            <p class="button col-xs-offset-2 col-xs-8" id="show-button">Show Card</p>
+        </div>
+</section>
+<p id="help" class="bottom noselect col-xs-12">Help</p>
+
+<section id="help-menu" class="container hidden col-xs-12">
+    <h1>Help Menu</h1>
+    <p class="button col-xs-3" id="overview-button">How to Play</p>
+    <p class="button col-xs-offset-1 col-xs-3" id="time-button">Time/Leadership</p>
+    <p class="button col-xs-offset-1 col-xs-3" id="roles-button">Roles/Conditions</p>
+
+
+    <div class="col-xs-12 hidden" id="overview-section">
+        <p>This game is an adaption of "<a href="http://www.tuesdayknightgames.com/tworoomsandaboom/">Two Rooms and a Boom</a>."</p>
+        <p>
+            Two Rooms and a Boom is a social deduction, hidden role game. There are two teams, the <span class="team-bomber">Red Team</span>
+            and the <span class="team-president">Blue Team</span>. The <span class="team-president">Blue Team</span> has a
+            <span class="team-president"><em>President</em></span>.
+            The <span class="team-bomber">Red Team</span> has a <span class="team-bomber"><em>Bomber</em></span>.
+            Players are equally distributed between two rooms (separate playing areas). The game consists of 5 timed rounds.
+            At the end of each round, some players will be traded into opposing rooms.
+            If the <span class="team-bomber">Red Team</span>’s <span class="team-bomber"><em>Bomber</em></span> is in
+            the same room as the <span class="team-president">Blue Team</span>'s <span class="team-president"><em>President</em></span> at the end of the game,
+            then the <span class="team-bomber">Red Team</span> wins.
+            Otherwise the <span class="team-president">Blue Team</span> wins.
+        </p>
+
+        <p>
+            In this adaptation, label each player as a random unique number from 1 to the amount of players.
+            Insert all the values in to and your role should display on your device.
+        </p>
+
+        <p>
+            Randomly separate the players into two rooms. The “rooms” can be
+            separated by a wall, door, or simply two open areas at a distance from each other.
+            It is not important if players can see one another, but players in the separate rooms
+            shouldn't be able to hear one another.
+        </p>
+
+        <p>
+            Start the timer at the specified time (see "Time/Leadership).
+        </p>
+
+        <p>
+            For more rules and specification, check out the <a href="rulebook.pdf">rule book</a>.
+        </p>
+    </div>
+
+    <div class="col-xs-12 hidden" id="time-section">
+        <p><img src="image/timer.jpg"></p>
+        <p>
+            The first player that is nominated by another player to be the leader becomes
+            leader. That player should take the leader card as a visual identifier for others
+            players to see. It is important that players in a room can easily identify their room
+            leader. If other players are not happy with this leader, they may attempt to change
+            leaders.
+        </p>
+
+        <p>
+            Nominate a leader by pointing at them and if a majority agree then change leaders. A leader can willingly give up their
+            leadership to anyone they so choose. A leader can change at anytime.
+        </p>
+
+        <p>
+            Leaders have the final say in who the hostages will be. Make sure you trust your leaders.
+        </p>
+
+        <p>
+            *Note: Leaders cannot be hostages themselves
+        </p>
+
+        <p>
+            For more rules and specification, check out the <a href="rulebook.pdf">rule book</a>.
+        </p>
+    </div>
+
+    <div class="col-xs-12 hidden" id="roles-section">
+        <h1>Conditions</h1>
+        <p>"Dead" - You are in the same room as the bomber as the end of the game.</p>
+        <p>"Coy" - You may ONLY color share even when a character's power might force a card share.</p>
+        <p>"Shy" - You may not reveal any aspect of your card.</p>
+        <p>"Leader" - You are the hostage leader.</p>
+        <h1>Primary Roles</h1>
+        <p>
+            <span class="team-president">President</span> - You are part of <span class="team-president">Blue Team</span>.
+            You win if you do not gain the condition "dead."
+        </p>
+
+        <p>
+            <span class="team-bomber">Bomber</span> - You are part of <span class="team-bomber">Red Team</span>.
+            You win if the president gains the condition "dead."
+        </p>
+
+
+        <h1>Secondary Colored Roles</h1>
+        <p>
+            <span class="team-president">Doctor</span> - You are part of <span class="team-president">Blue Team</span>.
+            When playing with the  <span class="team-president">Doctor</span>, the <span class="team-president">Blue Team</span> has the following additional win condition:
+            the <span class="team-president">President</span> must card share with the
+            <span class="team-president">Doctor</span> before the end of the game or the <span class="team-president">Blue Team</span> loses. At the end of the game, the President will be asked if he/she card shared
+            with the <span class="team-president">Doctor</span>. At that time both players will verify or deny having card shared.
+        </p>
+        <p>
+            <span class="team-bomber">Engineer</span> - You are part of <span class="team-bomber">Red Team</span>.
+            When playing with the <span class="team-bomber">Engineer</span>, the <span class="team-bomber">Red Team</span> has the following additional win
+            condition: the Bomber must card share with the <span class="team-bomber">Engineer</span> before the end of the game or the
+            <span class="team-bomber">Red Team</span> loses. At the end of the game, the <span class="team-bomber">Bomber</span> will be asked if he/she card shared with the
+            <span class="team-bomber">Engineer</span>. At that time both players will verify or deny having card shared.
+        </p>
+        <p>
+            *Recommended to play with the Doctor with the Engineer
+        </p>
+        <hr>
+        <p>
+            <span class="team-president">Coy</span>  <span class="team-bomber">Boy</span> ­ you begin with the "coy" condition. Players with the "coy" condition may ONLY
+            color share even when a character's power might force a card share. A Coy Boy can’t card
+            share, privately reveal, or publicly reveal their card or their color.
+        </p>
+        <p>
+            <span class="team-president">Shy</span>  <span class="team-bomber">Guy</span> - you begin with the "shy" condition. Players with the "shy" condition may not reveal
+            any part of their card to any player.
+        </p>
+        <p>
+            <span class="team-president">Spy</span>/<span class="team-bomber">Spy</span> ­ this is a special character card that is the color of the opposite team.
+            This means, for example, that the <span class="team-bomber">red Spy</span> has an allegiance to the <span class="team-bomber">Red Team</span>,
+            but their card is blue.
+        </p>
+
+        <h1>Secondary Neutral Roles</h1>
+        <p>
+            Gambler - Before the every reveal their roles, guess who will win (red, blue, or neither). If you guess correctly, you win.
+        </p>
+        <p>
+            *Played in odd numbered games
+        </p>
+        <hr>
+        <p>
+            Butler - You win if you are with the Maid and the <span class="team-president">President</span> at the end of the game.
+        </p>
+        <p>
+            Maid - You win if you are with the Butler and the <span class="team-president">President</span> at the end of the game.
+        </p>
+
+        <p>
+            Romeo - You win if you are with Juliet and the <span class="team-bomber">Bomber</span> at the end of the game.
+        </p>
+        <p>
+            Juliet - You win if you are with Romeo and the <span class="team-bomber">Bomber</span> at the end of the game.
+        </p>
+        <p>*The Butler, Maid, Romeo and Juliet work well in the same game.</p>
+        <hr>
+        <p>
+            Intern - You win if you are in the same room as the <span class="team-president">President</span> at the end of the game.
+        </p>
+
+        <p>
+            Victim - You win if you are in the same room as the <span class="team-bomber">Bomber</span> at the end of the game.
+        </p>
+
+        <p>
+            Rival - You win if you are NOT in the same room as the <span class="team-president">President</span> at the end of the game
+        </p>
+
+        <p>
+            Survivor - You win if you are NOT in the same room as the <span class="team-bomber">Bomber</span> at the end of the game
+        </p>
+        <p>*The Intern, Victim, Rival, and Survivor work well in the same game.</p>
+        <hr>
+        <p>
+            Sniper - At the end of the last round, before all players reveal their character cards, you
+            must publicly announce which player you are shooting. The selected player does not have to be
+            in the same room as you. You win if the player you selected is the Target. If the player you
+            choose is not the Target or the Decoy, then the selected player gains the "dead" condition.
+            Note: a "dead" <span class="team-bomber">Bomber</span> does not detonate.
+        </p>
+        <p>
+            Target - you win if the Sniper does not shoot you at the end of the last round.
+        </p>
+        <p>
+            Decoy - you win if the Sniper shoots you at the end of the last round.
+        </p>
+        <p>
+            *The Sniper, Target, and Decoy must be in the same game.
+        </p>
+        <hr>
+        <p>
+            Hero - You win if you are in the same room as the <span class="team-president">President</span> and <span class="team-bomber">Bomber</span>
+            at the end of the game. If you win, the both Red and Blue teams lose.
+        </p>
+        <p>
+            Villain - You win if you are in the same room as the <span class="team-president">President</span> and the opposite room as the
+            <span class="team-bomber">Bomber</span>. If you win, the both Red and Blue teams lose
+        </p>
+        <hr>
+        <p>
+            Robot - You win if the first player with whom you card share or color share fails to achieve
+            all of their win objectives. If you fail to card share or color share with any players, then you lose.
+        </p>
+        <p>
+            Clone - You win if the first player with whom you card share or color share wins,
+            succeeding at all of their win objectives.
+
+        </p>
+
+        <p>
+            Find out more roles with the <a href="character-guide.pdf">Character Guide</a>.
+        </p>
+
+
+    </div>
+
+</section>
+
+
+
+<script src="js/main.js"></script>
+</body>
+</html>
