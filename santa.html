@@ -8,10 +8,11 @@
 		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
 		<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
 		<style>
-body {background-color: #6B92B9; cursor: url('http://www.rw-designer.com/cursor-view/29085.png'), auto;}
+body {background-color: #6B92B9; cursor: url('http://www.rw-designer.com/cursor-view/29085.png'), auto !important;}
 h1   {color: white;}
 p    {color: white;}
 span {color: white;}
+.cursor-mania {cursor: url(http://www.rw-designer.com/cursor-view/29085.png), auto !important;}
 	</style>
      <style>
        :root {
@@ -125,7 +126,7 @@ body {
   display: flex;
   justify-content: space-between;
   padding: 20px;
-  width: 500px;
+  width: 100%;
   margin: 0 auto;
 }
 
@@ -206,20 +207,103 @@ body {
 .light-bulb.theme-color-five {
   animation-name: light-up-theme-color-five;
 }
+
+.light-bulb-one {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  position: relative;
+  animation-duration: 1.1s;
+  animation-iteration-count: infinite;
+  animation-delay: .55s;
+}
+
+.light-bulb-one::before {
+  content: '';
+  position: absolute;
+  border: 2px solid #222;
+  width: 10px;
+  height: 10px;
+  background: #222;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  left: 25%;
+  top: -12px;
+}
+
+.light-bulb-one::after {
+  content: '';
+  top: -20px;
+  left: 60%;
+  position: absolute;
+  width: 90px;
+  height: 28px;
+  border-bottom: 4px solid #222;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.light-bulb-one:last-of-type::after {
+  border: none;
+}
+
+.light-bulb-one.theme-color-one {
+  background: var(--theme-color-one);
+}
+
+.light-bulb-one.theme-color-two {
+  background: var(--theme-color-two);
+}
+
+.light-bulb-one.theme-color-three {
+  background: var(--theme-color-three);
+}
+
+.light-bulb-one.theme-color-four {
+  background: var(--theme-color-four);
+}
+
+.light-bulb-one.theme-color-five {
+  background: var(--theme-color-five);
+}
+
+.light-bulb-one.theme-color-one {
+  animation-name: light-up-theme-color-one;
+}
+
+.light-bulb-one.theme-color-two {
+  animation-name: light-up-theme-color-two;
+}
+
+.light-bulb-one.theme-color-three {
+  animation-name: light-up-theme-color-three;
+}
+
+.light-bulb-one.theme-color-four {
+  animation-name: light-up-theme-color-four;
+}
+
+.light-bulb-one.theme-color-five {
+  animation-name: light-up-theme-color-five;
+}
        </style>
    </head>
    <body>
-   <!--
-     <iframe width="560" height="0" src="https://www.youtube.com/embed/2TEAh5SHZGs?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
-></iframe>
--->
+	<iframe width="560" height="0" src="https://www.youtube.com/embed/jnXxxKZ57Tw?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+	
      <section class="light-bulbs">
       <div class="light-bulb theme-color-one"></div>
-      <div class="light-bulb theme-color-two"></div>
+      <div class="light-bulb-one theme-color-two"></div>
       <div class="light-bulb theme-color-one"></div>
-      <div class="light-bulb theme-color-two"></div>
+      <div class="light-bulb-one theme-color-two"></div>
       <div class="light-bulb theme-color-one"></div>
-      <div class="light-bulb theme-color-two"></div>
+      <div class="light-bulb-one theme-color-two"></div>
+	  <div class="light-bulb theme-color-one"></div>
+      <div class="light-bulb-one theme-color-two"></div>
+	  <div class="light-bulb theme-color-one"></div>
+      <div class="light-bulb-one theme-color-two"></div>
+	  <div class="light-bulb theme-color-one"></div>
+      <div class="light-bulb-one theme-color-two"></div>
     </section> 
      <div class="container">
         <p>Secret Santa Picker</p>
@@ -227,12 +311,12 @@ body {
 
         <div class="form-group">
           <p>Enter a seed: </p>
-          <input type="text" class="form-control" id="seed" placeholder="Enter seed (a number, a phrase)">
+          <input type="text" class="form-control cursor-mania" id="seed" placeholder="Enter seed (a number, a phrase)">
           <p>The seed will be used to generate the pairings. Make sure to remember it. That way you can check the pairing in case you forget (make sure to spell each name the same).</p>
         	<p>Enter the names in the text box below. Make sure each name is seperated by a new line or seperate line.</p>
-            <textarea id="names" class="form-control" style="height: 400px"placeholder="Enter Names Here. Seperate names by a new line. Example: &#10Harry&#10Hermione&#10Ron&#10Leia&#10Luke&#10Han&#10John&#10Chuck&#10Sarah"></textarea>
+            <textarea id="names" class="form-control cursor-mania" style="height: 400px"placeholder="Enter Names Here. Seperate names by a new line. Example: &#10Harry&#10Hermione&#10Ron&#10Leia&#10Luke&#10Han&#10John&#10Chuck&#10Sarah"></textarea>
      </div>
-        <button type="button" class="btn btn-light" id="generate">Generate</button>
+        <button type="button" class="btn btn-light cursor-mania" id="generate">Generate</button>
        <br><br>
        <div id="show">
        </div>
@@ -375,7 +459,7 @@ window.addEventListener('load', initSnow);
 				$("#show").append("<span class='pair'>" + pairsSorted[i] + "</span><br>");
 			}
 			$("#show").append("<br>");
-			$("#show").append("<button type='button' class='btn btn-light' id='reveal'>Reveal</button>");
+			$("#show").append("<button type='button' class='btn btn-light cursor-mania' id='reveal'>Reveal</button>");
 			console.log("pairs: " + pairs);
 			console.log("pairsSorted: " + pairsSorted);
 		});
