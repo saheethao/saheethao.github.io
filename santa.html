@@ -1,0 +1,407 @@
+<!DOCTYPE html>
+<html>
+   <head>
+      <title>Secret Santa</title>
+      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
+       <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
+</script>
+       <style>
+				body {background-color: #6B92B9; cursor: url('http://www.rw-designer.com/cursor-view/29085.png'), auto;}
+h1   {color: white;}
+p    {color: white;}
+         span {color: white;}
+</style>
+     <style>
+       :root {
+  --theme-color-one: #B3000C;
+  --theme-color-two: #00B32C;
+  --theme-color-three: #B3000C;
+  --theme-color-four: #00B32C;
+  --theme-color-five: #B3000C;
+  --white: #fff;
+  --black: #000;
+  --grey: #999;
+  background: var(--black);
+  color: var(--white);
+}
+
+@keyframes light-up-theme-color-one {
+  0% {
+    box-shadow: 0 1px 10px 5px var(--theme-color-one);
+  }
+  25% {
+    box-shadow: 0 1px 15px 5px var(--theme-color-one);
+  }
+  50% {
+    box-shadow: 0 1px 20px 5px var(--theme-color-one);
+  }
+  75% {
+    box-shadow: 0 1px 25px 5px var(--theme-color-one);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes light-up-theme-color-two {
+  0% {
+    box-shadow: 0 1px 10px 5px var(--theme-color-two);
+  }
+  25% {
+    box-shadow: 0 1px 15px 5px var(--theme-color-two);
+  }
+  50% {
+    box-shadow: 0 1px 20px 5px var(--theme-color-two);
+  }
+  75% {
+    box-shadow: 0 1px 25px 5px var(--theme-color-two);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes light-up-theme-color-three {
+  0% {
+    box-shadow: 0 1px 10px 5px var(--theme-color-three);
+  }
+  25% {
+    box-shadow: 0 1px 15px 5px var(--theme-color-three);
+  }
+  50% {
+    box-shadow: 0 1px 20px 5px var(--theme-color-three);
+  }
+  75% {
+    box-shadow: 0 1px 25px 5px var(--theme-color-three);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes light-up-theme-color-four {
+  0% {
+    box-shadow: 0 1px 10px 5px var(--theme-color-four);
+  }
+  25% {
+    box-shadow: 0 1px 15px 5px var(--theme-color-four);
+  }
+  50% {
+    box-shadow: 0 1px 20px 5px var(--theme-color-four);
+  }
+  75% {
+    box-shadow: 0 1px 25px 5px var(--theme-color-four);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+@keyframes light-up-theme-color-five {
+  0% {
+    box-shadow: 0 1px 10px 5px var(--theme-color-five);
+  }
+  25% {
+    box-shadow: 0 1px 15px 5px var(--theme-color-five);
+  }
+  50% {
+    box-shadow: 0 1px 20px 5px var(--theme-color-five);
+  }
+  75% {
+    box-shadow: 0 1px 25px 5px var(--theme-color-five);
+  }
+  100% {
+    box-shadow: none;
+  }
+}
+
+body {
+  font-family: 'Alatsi', sans-serif;
+}
+
+.light-bulbs {
+  display: flex;
+  justify-content: space-between;
+  padding: 20px;
+  width: 500px;
+  margin: 0 auto;
+}
+
+.light-bulb {
+  border-radius: 50%;
+  height: 30px;
+  width: 30px;
+  position: relative;
+  animation-duration: 1.1s;
+  animation-iteration-count: infinite;
+}
+
+.light-bulb::before {
+  content: '';
+  position: absolute;
+  border: 2px solid #222;
+  width: 10px;
+  height: 10px;
+  background: #222;
+  border-top-left-radius: 5px;
+  border-top-right-radius: 5px;
+  left: 25%;
+  top: -12px;
+}
+
+.light-bulb::after {
+  content: '';
+  top: -20px;
+  left: 60%;
+  position: absolute;
+  width: 90px;
+  height: 28px;
+  border-bottom: 4px solid #222;
+  border-radius: 50%;
+  z-index: -1;
+}
+
+.light-bulb:last-of-type::after {
+  border: none;
+}
+
+.light-bulb.theme-color-one {
+  background: var(--theme-color-one);
+}
+
+.light-bulb.theme-color-two {
+  background: var(--theme-color-two);
+}
+
+.light-bulb.theme-color-three {
+  background: var(--theme-color-three);
+}
+
+.light-bulb.theme-color-four {
+  background: var(--theme-color-four);
+}
+
+.light-bulb.theme-color-five {
+  background: var(--theme-color-five);
+}
+
+.light-bulb.theme-color-one {
+  animation-name: light-up-theme-color-one;
+}
+
+.light-bulb.theme-color-two {
+  animation-name: light-up-theme-color-two;
+}
+
+.light-bulb.theme-color-three {
+  animation-name: light-up-theme-color-three;
+}
+
+.light-bulb.theme-color-four {
+  animation-name: light-up-theme-color-four;
+}
+
+.light-bulb.theme-color-five {
+  animation-name: light-up-theme-color-five;
+}
+       </style>
+   </head>
+   <body>
+     <iframe width="560" height="0" src="https://www.youtube.com/embed/2TEAh5SHZGs?autoplay=1&loop=1" frameborder="0"></iframe>
+     <section class="light-bulbs">
+      <div class="light-bulb theme-color-one"></div>
+      <div class="light-bulb theme-color-two"></div>
+      <div class="light-bulb theme-color-one"></div>
+      <div class="light-bulb theme-color-two"></div>
+      <div class="light-bulb theme-color-one"></div>
+      <div class="light-bulb theme-color-two"></div>
+    </section> 
+     <div class="container">
+        <p>Secret Santa Picker</p>
+        <p>By: Elise &amp; Sahee</p>
+
+        <div class="form-group">
+          <p>Enter a seed: </p>
+          <input type="text" class="form-control" id="seed" placeholder="Enter seed (a number, a phrase)">
+          <p>The seed will be used to generate the pairings. Make sure to remember it. That way you can check the pairing in case you forget (make sure to spell each name the same).</p>
+        	<p>Enter the names in the text box below. Make sure each name is seperated by a new line or seperate line.</p>
+            <textarea id="names" class="form-control" style="height: 400px"placeholder="Enter Names Here. Seperate names by a new line. Example: &#10Harry&#10Hermione&#10Ron&#10Leia&#10Luke&#10Han&#10John&#10Chuck&#10Sarah"></textarea>
+     </div>
+        <button type="button" class="btn btn-light" id="generate">Generate</button>
+       <br><br>
+       <div id="show">
+       </div>
+     </div>
+     <script>
+       /*!
+// Snow.js - v0.0.3
+// kurisubrooks.com
+*/
+
+// Amount of Snowflakes
+var snowMax = 35;
+
+// Snowflake Colours
+var snowColor = ["#F7F7F7", "#F7F7F7"];
+
+// Snow Entity
+var snowEntity = "&#x2022;";
+
+// Falling Velocity
+var snowSpeed = 0.75;
+
+// Minimum Flake Size
+var snowMinSize = 8;
+
+// Maximum Flake Size
+var snowMaxSize = 24;
+
+// Refresh Rate (in milliseconds)
+var snowRefresh = 50;
+
+// Additional Styles
+var snowStyles = "cursor: default; -webkit-user-select: none; -moz-user-select: none; -ms-user-select: none; -o-user-select: none; user-select: none;";
+
+/*
+// End of Configuration
+// ----------------------------------------
+// Do not modify the code below this line
+*/
+
+var snow = [],
+	pos = [],
+	coords = [],
+	lefr = [],
+	marginBottom,
+	marginRight;
+
+function randomise(range) {
+	rand = Math.floor(range * Math.random());
+	return rand;
+}
+
+function initSnow() {
+	var snowSize = snowMaxSize - snowMinSize;
+	marginBottom = document.body.scrollHeight - 5;
+	marginRight = document.body.clientWidth - 15;
+
+	for (i = 0; i <= snowMax; i++) {
+		coords[i] = 0;
+		lefr[i] = Math.random() * 15;
+		pos[i] = 0.03 + Math.random() / 10;
+		snow[i] = document.getElementById("flake" + i);
+		snow[i].style.fontFamily = "inherit";
+		snow[i].size = randomise(snowSize) + snowMinSize;
+		snow[i].style.fontSize = snow[i].size + "px";
+		snow[i].style.color = snowColor[randomise(snowColor.length)];
+		snow[i].style.zIndex = 1000;
+		snow[i].sink = snowSpeed * snow[i].size / 5;
+		snow[i].posX = randomise(marginRight - snow[i].size);
+		snow[i].posY = randomise(2 * marginBottom - marginBottom - 2 * snow[i].size);
+		snow[i].style.left = snow[i].posX + "px";
+		snow[i].style.top = snow[i].posY + "px";
+	}
+
+	moveSnow();
+}
+
+function resize() {
+	marginBottom = document.body.scrollHeight - 5;
+	marginRight = document.body.clientWidth - 15;
+}
+
+function moveSnow() {
+	for (i = 0; i <= snowMax; i++) {
+		coords[i] += pos[i];
+		snow[i].posY += snow[i].sink;
+		snow[i].style.left = snow[i].posX + lefr[i] * Math.sin(coords[i]) + "px";
+		snow[i].style.top = snow[i].posY + "px";
+
+		if (snow[i].posY >= marginBottom - 2 * snow[i].size || parseInt(snow[i].style.left) > (marginRight - 3 * lefr[i])) {
+			snow[i].posX = randomise(marginRight - snow[i].size);
+			snow[i].posY = 0;
+		}
+	}
+
+	setTimeout("moveSnow()", snowRefresh);
+}
+
+for (i = 0; i <= snowMax; i++) {
+	document.write("<span id='flake" + i + "' style='" + snowStyles + "position:absolute;top:-" + snowMaxSize + "'>" + snowEntity + "</span>");
+}
+
+window.addEventListener('resize', resize);
+window.addEventListener('load', initSnow);
+
+     </script>
+     <script>
+       var pairs = [];
+       var selected = null;
+       function toTitleCase(str) {
+  return str.replace(
+    /\w\S*/g,
+    function(txt) {
+      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
+    }
+  );
+}
+       	$("#generate").click(function() {
+          pairs = [];
+       		selected = null;
+  				let names = $("#names").val().split("\n");
+          var rng = new Math.seedrandom($("#seed").val());
+          names.sort();
+          let shuffled = [];
+          let len = names.length;
+          for (let i = 0; i < len - 1; i++) {
+						let n = Math.round(rng() * (names.length - 1));
+            console.log("----- Loop " + i + " ------");
+            console.log("names: " + names);
+
+            let pulled = _.pullAt(names, [n]);
+            console.log("pos: " + n);
+            console.log("pulled:" + pulled);
+            shuffled.push(toTitleCase(pulled[0]));
+          }
+          shuffled.push(toTitleCase(names[0]));
+          pairs = shuffled;
+          let pairsSorted = _.cloneDeep(pairs);
+          pairsSorted.sort();
+          $("#show").empty();
+					$("#show").append("<p>Click on a name to select them. Then click on the reveal button to show who they have.</p>");
+          $("#show").append("<p>Currently selected: <span id='current'>No one</span></p>");
+          for (let i = 0; i < pairsSorted.length; i++) {
+						$("#show").append("<span class='pair'>" + pairsSorted[i] + "</span><br>");
+          }
+          $("#show").append("<br>");
+          $("#show").append("<button type='button' class='btn btn-light' id='reveal'>Reveal</button>");
+					
+				});
+       
+       $(".pair").click(function() {
+         $("#current").empty();
+         selected = $(this).text();
+         $("#current").html(selected);
+       }
+       $("#reveal").click(function() {
+         if (selected == null) {
+						alert("No one selected. Please select somone.");
+           	return;
+         }
+         let pos = 0;
+         for (let i = 0; i < pairs.length; i++) {
+           if (pairs[i] == selected) {
+             pos = (i+1) % pairs.length;
+             alert("Hi " + selected + "! You have " + pairs[pos] + ". Good luck!");
+             return;
+           }
+         }
+       }
+       
+     </script>
+
+   </body>
+</html>
