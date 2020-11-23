@@ -1,19 +1,18 @@
 <!DOCTYPE html>
 <html>
    <head>
-      <title>Secret Santa</title>
-      <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
-      <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
-     <script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
-       <script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js">
-</script>
-       <style>
-				body {background-color: #6B92B9; cursor: url('http://www.rw-designer.com/cursor-view/29085.png'), auto;}
+		<title>Secret Santa</title>
+		<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css">
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.5.1/jquery.min.js" integrity="sha512-bLT0Qm9VnAYZDflyKcBaQ2gg0hSYNQrJ8RilYldYQ1FxQYoCLtUjuuRuZo+fjqhx/qtq/1itJ0C2ejDxltZVFg==" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/lodash.js/4.17.20/lodash.min.js" integrity="sha512-90vH1Z83AJY9DmlWa8WkjkV79yfS2n2Oxhsi2dZbIv0nC4E6m5AbH8Nh156kkM7JePmqD6tcZsfad1ueoaovww==" crossorigin="anonymous"></script>
+		<script src="//cdnjs.cloudflare.com/ajax/libs/seedrandom/3.0.5/seedrandom.min.js"></script>
+		<style>
+body {background-color: #6B92B9; cursor: url('http://www.rw-designer.com/cursor-view/29085.png'), auto;}
 h1   {color: white;}
 p    {color: white;}
-         span {color: white;}
-</style>
+span {color: white;}
+	</style>
      <style>
        :root {
   --theme-color-one: #B3000C;
@@ -210,7 +209,10 @@ body {
        </style>
    </head>
    <body>
-     <iframe width="560" height="0" src="https://www.youtube.com/embed/2TEAh5SHZGs?autoplay=1&loop=1" frameborder="0"></iframe>
+   <!--
+     <iframe width="560" height="0" src="https://www.youtube.com/embed/2TEAh5SHZGs?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture"
+></iframe>
+-->
      <section class="light-bulbs">
       <div class="light-bulb theme-color-one"></div>
       <div class="light-bulb theme-color-two"></div>
@@ -338,69 +340,69 @@ window.addEventListener('load', initSnow);
 
      </script>
      <script>
-       var pairs = [];
-       var selected = null;
        function toTitleCase(str) {
-  return str.replace(
-    /\w\S*/g,
-    function(txt) {
-      return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();
-    }
-  );
-}
+			return str.replace(/\w\S*/g,
+				function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+		}
+		var pairs = [];
+		var selected = null;
        	$("#generate").click(function() {
-          pairs = [];
-       		selected = null;
-  				let names = $("#names").val().split("\n");
-          var rng = new Math.seedrandom($("#seed").val());
-          names.sort();
-          let shuffled = [];
-          let len = names.length;
-          for (let i = 0; i < len - 1; i++) {
-						let n = Math.round(rng() * (names.length - 1));
-            console.log("----- Loop " + i + " ------");
-            console.log("names: " + names);
+			pairs = [];
+			selected = null;
+			let names = $("#names").val().split("\n");
+			var rng = new Math.seedrandom($("#seed").val());
+			names.sort();
+			let shuffled = [];
+			let len = names.length;
+			for (let i = 0; i < len - 1; i++) {
+				let n = Math.round(rng() * (names.length - 1));
+				console.log("----- Loop " + i + " ------");
+				console.log("names: " + names);
 
-            let pulled = _.pullAt(names, [n]);
-            console.log("pos: " + n);
-            console.log("pulled:" + pulled);
-            shuffled.push(toTitleCase(pulled[0]));
-          }
-          shuffled.push(toTitleCase(names[0]));
-          pairs = shuffled;
-          let pairsSorted = _.cloneDeep(pairs);
-          pairsSorted.sort();
-          $("#show").empty();
-					$("#show").append("<p>Click on a name to select them. Then click on the reveal button to show who they have.</p>");
-          $("#show").append("<p>Currently selected: <span id='current'>No one</span></p>");
-          for (let i = 0; i < pairsSorted.length; i++) {
-						$("#show").append("<span class='pair'>" + pairsSorted[i] + "</span><br>");
-          }
-          $("#show").append("<br>");
-          $("#show").append("<button type='button' class='btn btn-light' id='reveal'>Reveal</button>");
-					
-				});
-       
-       $(".pair").click(function() {
-         $("#current").empty();
-         selected = $(this).text();
-         $("#current").html(selected);
-       }
-       $("#reveal").click(function() {
-         if (selected == null) {
-						alert("No one selected. Please select somone.");
-           	return;
-         }
-         let pos = 0;
-         for (let i = 0; i < pairs.length; i++) {
-           if (pairs[i] == selected) {
-             pos = (i+1) % pairs.length;
-             alert("Hi " + selected + "! You have " + pairs[pos] + ". Good luck!");
-             return;
-           }
-         }
-       }
-       
+				let pulled = _.pullAt(names, [n]);
+				console.log("pos: " + n);
+				console.log("pulled:" + pulled);
+				shuffled.push(toTitleCase(pulled[0]));
+			}
+			shuffled.push(toTitleCase(names[0]));
+			pairs = shuffled;
+			let pairsSorted = _.cloneDeep(pairs);
+			pairsSorted.sort();
+			$("#show").empty();
+			$("#show").append("<p>Click on a name to select them. Then click on the reveal button to show who they have.</p>");
+			$("#show").append("<p>Currently selected: <span id='current'>No one</span></p>");
+			for (let i = 0; i < pairsSorted.length; i++) {
+				$("#show").append("<span class='pair'>" + pairsSorted[i] + "</span><br>");
+			}
+			$("#show").append("<br>");
+			$("#show").append("<button type='button' class='btn btn-light' id='reveal'>Reveal</button>");
+			console.log("pairs: " + pairs);
+			console.log("pairsSorted: " + pairsSorted);
+		});
+		
+		 $(document).on('click', '.pair', function () {
+			$("#current").empty();
+			selected = $(this).text();
+			$("#current").html(selected);
+		});
+		
+		
+		
+		$(document).on('click', '#reveal', function () {
+			console.log("DDDD");
+			console.log("clock");
+			if (selected == null) {
+				alert("No one selected. Please select somone.");
+			} else {
+				let pos = 0;
+				for (let i = 0; i < pairs.length; i++) {
+					if (pairs[i] == selected) {
+						pos = (i+1) % pairs.length;
+						alert("Hi " + selected + "! You have " + pairs[pos] + ". Good luck!");
+					}
+				}
+			}
+		});
      </script>
 
    </body>
