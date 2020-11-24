@@ -12,6 +12,8 @@ body {background-color: #6B92B9; cursor: url('http://www.rw-designer.com/cursor-
 h1   {color: white;}
 p    {color: white;}
 span {color: white;}
+a {color: white;}
+a:hover {color: white;}
 .cursor-mania {cursor: url(http://www.rw-designer.com/cursor-view/29085.png), auto !important;}
 	</style>
      <style>
@@ -453,10 +455,14 @@ window.addEventListener('load', initSnow);
 			let pairsSorted = _.cloneDeep(pairs);
 			pairsSorted.sort();
 			$("#show").empty();
-			$("#show").append("<p>Click on a name to select them. Then click on the reveal button to show who they have.</p>");
+			$("#show").append("<p>Click on a name to select them. Then click on the reveal button to show who they have. Otherwise use the link! You can send the link to that person so they can see who they have.</p>");
 			$("#show").append("<p>Currently selected: <span id='current'>No one</span></p>");
+			let pos = 0;
 			for (let i = 0; i < pairsSorted.length; i++) {
 				$("#show").append("<span class='pair'>" + pairsSorted[i] + "</span><br>");
+				pos = (i+1) % pairs.length;
+				let url = "santa-reveal.html?person=" + pairsSorted[i] + "&secret=" + btoa(pairs[pos]);
+				$("#show").append("<span><a href='" + url + "'>" + url + "</a></span><br><br>");
 			}
 			$("#show").append("<br>");
 			$("#show").append("<button type='button' class='btn btn-light cursor-mania' id='reveal'>Reveal</button>");
@@ -473,8 +479,6 @@ window.addEventListener('load', initSnow);
 		
 		
 		$(document).on('click', '#reveal', function () {
-			console.log("DDDD");
-			console.log("clock");
 			if (selected == null) {
 				alert("No one selected. Please select somone.");
 			} else {
