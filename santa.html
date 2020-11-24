@@ -342,6 +342,9 @@ window.addEventListener('load', initSnow);
 			pairs = [];
 			selected = null;
 			let names = $("#names").val().split("\n");
+			names = names.filter(function(value, index, arr){ 
+					return value != "";
+				});
 			var rng = new Math.seedrandom($("#seed").val());
 			names.sort();
 			let shuffled = [];
@@ -363,10 +366,18 @@ window.addEventListener('load', initSnow);
 			$("#show").empty();
 			$("#show").append("<p>Click on a name to select them. Then click on the reveal button to show who they have. Otherwise use the link! You can send the link to that person so they can see who they have.</p>");
 			$("#show").append("<p>Currently selected: <span id='current'>No one</span></p>");
-			let pos = 0;
+			
 			for (let i = 0; i < pairsSorted.length; i++) {
 				$("#show").append("<span class='pair'>" + pairsSorted[i] + "</span><br>");
-				pos = (i+1) % pairs.length;
+				let pos = 0;
+				for (let j = 0; j < pairs.length; j++) {
+					if (pairs[j] == pairsSorted[i]) {
+						console.log("pairs[j] == pairsSorted[i], " + j + " " + i);
+						pos = (j+1) % pairs.length;
+						break;
+					}
+				}
+				
 				let url = "santa-reveal.html?person=" + pairsSorted[i] + "&secret=" + btoa(pairs[pos]);
 				$("#show").append("<span><a href='" + url + "'>" + url + "</a></span><br><br>");
 			}
