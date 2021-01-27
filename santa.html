@@ -161,7 +161,10 @@ a:hover {color: white;}
        </style>
    </head>
    <body>
-	<iframe width="560" height="0" src="https://www.youtube.com/embed/jnXxxKZ57Tw?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+   <audio id="myAudio">
+		<source src="audio/santa.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
 	
           <ul class="strand">
     <!-- <li> tags create the individual christmas lights. we're going to have 43 -->
@@ -222,13 +225,27 @@ a:hover {color: white;}
           <input type="text" class="form-control cursor-mania" id="seed" placeholder="Enter seed (a number, a phrase)">
           <p>The seed will be used to generate the pairings. Make sure to remember it. That way you can check the pairing in case you forget (make sure to spell each name the same).</p>
         	<p>Enter the names in the text box below. Make sure each name is seperated by a new line or seperate line.</p>
-            <textarea id="names" class="form-control cursor-mania" style="height: 400px"placeholder="Enter Names Here. Seperate names by a new line. Example: &#10Harry&#10Hermione&#10Ron&#10Leia&#10Luke&#10Han&#10John&#10Chuck&#10Sarah"></textarea>
+			<p>If you don't want a pair to be able to occur, and a ! [list of prohibited names] at the end of a person's name
+            <textarea id="names" class="form-control cursor-mania" style="height: 400px"placeholder="Enter Names Here. Seperate names by a new line. Example: &#10Harry&#10Hermione ! Ron&#10Ron&#10Leia ! Han&#10Luke&#10Han&#10John ! Chuck&#10Chuck&#10Sarah"></textarea>
      </div>
         <button type="button" class="btn btn-light cursor-mania" id="generate">Generate</button>
        <br><br>
        <div id="show">
        </div>
      </div>
+	 
+	 <script>
+		var x = document.getElementById("myAudio"); 
+		function playAudio() { 
+			x.play(); 
+		} 
+
+		function pauseAudio() { 
+			x.pause(); 
+		}
+		
+	 </script>
+	 
      <script>
        /*!
 // Snow.js - v0.0.3
@@ -332,12 +349,58 @@ window.addEventListener('load', initSnow);
 
      </script>
      <script>
-       function toTitleCase(str) {
+       	var pairs = [];
+		var selected = null;
+		var excludedTable = {};
+	   
+	   function toTitleCase(str) {
 			return str.replace(/\w\S*/g,
 				function(txt) {return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
 		}
-		var pairs = [];
-		var selected = null;
+		
+		function isValidPairing(shuffled) {
+			var validFlag = true
+			console.log(shuffled.length + " shuffled: " + shuffled)
+			for(let i = 0; i < shuffled.length; i++) {
+				let curPerson = shuffled[i];
+				let nextPerson = shuffled[(i + 1) % shuffled.length];
+				
+				let excludedList = excludedTable[curPerson]
+				if(excludedList.includes(nextPerson)) {
+					validFlag = false;
+					break;
+				}
+			}
+			return validFlag;
+		}
+		
+		function fillExcludeTable(names){
+			let len = names.length;
+			for(let i = 0; i < len; i++){
+				splitName = names[i].split("!");
+				names[i] = splitName[0].trim();
+				excludedNames = []
+				if(splitName[1]  !== undefined && splitName[1].length > 0){
+					//check if the current name has exclusions, if so, add them to the table
+					excludedNamesSpace = splitName[1].split(",");
+					for(let j = 0; j < excludedNamesSpace.length; j++){
+						excludedNames.push(toTitleCase(excludedNamesSpace[j].trim()));
+					}
+				}
+			
+				excludedTable[names[i]] = _.cloneDeep(excludedNames);
+			}
+			
+			for(var key in excludedTable){
+				console.log(key + " => " + excludedTable[key]);
+			}
+		}
+		
+		$("#names").click(function(){
+			console.log("clicked");
+			playAudio()
+		});
+		
        	$("#generate").click(function() {
 			pairs = [];
 			selected = null;
@@ -347,19 +410,33 @@ window.addEventListener('load', initSnow);
 				});
 			var rng = new Math.seedrandom($("#seed").val());
 			names.sort();
+			
+			fillExcludeTable(names)
+			let iter = 0;
+			let validFlag = false;
 			let shuffled = [];
-			let len = names.length;
-			for (let i = 0; i < len - 1; i++) {
-				let n = Math.round(rng() * (names.length - 1));
-				console.log("----- Loop " + i + " ------");
-				console.log("names: " + names);
 
-				let pulled = _.pullAt(names, [n]);
-				console.log("pos: " + n);
-				console.log("pulled:" + pulled);
-				shuffled.push(toTitleCase(pulled[0]));
+			while(!validFlag && iter < 1000) {
+				let namesCopy = _.cloneDeep(names);
+				shuffled = [];
+				let len = namesCopy.length;
+				for (let i = 0; i < len - 1; i++) {
+					let randInt = rng()
+					console.log(randInt);
+					let n = Math.round(randInt * (namesCopy.length - 1));
+					console.log("----- Loop " + i + " ------");
+					console.log("names: " + namesCopy);
+
+					let pulled = _.pullAt(namesCopy, [n]);
+					console.log("pos: " + n);
+					console.log("pulled:" + pulled);
+					shuffled.push(toTitleCase(pulled[0]));
+				}
+				shuffled.push(toTitleCase(namesCopy[0]));
+				validFlag = isValidPairing(_.cloneDeep(shuffled))
+				iter++;
 			}
-			shuffled.push(toTitleCase(names[0]));
+			
 			pairs = shuffled;
 			let pairsSorted = _.cloneDeep(pairs);
 			pairsSorted.sort();
@@ -411,4 +488,4 @@ window.addEventListener('load', initSnow);
      </script>
 
    </body>
-</html>
+</html
