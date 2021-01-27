@@ -410,7 +410,10 @@ span {color: white;}
 	   </style>
    </head>
    <body>
-	<iframe width="560" height="0" src="https://www.youtube.com/embed/jnXxxKZ57Tw?autoplay=1&loop=1" frameborder="0" allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>
+   <audio id="myAudio">
+		<source src="audio/bells.mp3" type="audio/mpeg">
+		Your browser does not support the audio element.
+	</audio>
 	
      <ul class="strand">
     <!-- <li> tags create the individual christmas lights. we're going to have 43 -->
@@ -482,7 +485,18 @@ span {color: white;}
 			</div>
 		</div>
 	</div>
+	
+	<script>
+		var x = document.getElementById("myAudio"); 
+		function playAudio() { 
+			x.play(); 
+		} 
+
+		function pauseAudio() { 
+			x.pause(); 
+		}
 		
+	 </script>
 		
      <script>
        /*!
@@ -602,9 +616,11 @@ window.addEventListener('load', initSnow);
 			$("#show").append("<p>Hello " + params['person'] + "! Click the button or hover over the gift to reveal who you have!</p>");
 			$("#show").append("<button type='button' class='btn btn-light cursor-mania' id='reveal'>Reveal</button>");
 			$("#name").html(atob(params['secret']));
+			
 		});
 		
 		$(document).on('click', '#reveal', function () {
+			playAudio();
 			alert("You have " + atob(params['secret']) + ". Good luck!");
 		});
      </script>
