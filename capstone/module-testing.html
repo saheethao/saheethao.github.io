@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+	<title>Evolving Solutions to the IPD</title>
+	<script src="lodash.js"></script>
+	<script type="module" src="js/modules/module.js"></script>
+	<script type="module" src="js/modules/initialization2.js"></script>
+	<script type="module" src="js/modules/moduleTesting.js"></script>
+	<script src="jquery-3.5.1.min.js"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/3.2.0/chart.min.js" integrity="sha512-VMsZqo0ar06BMtg0tPsdgRADvl0kDHpTbugCBBrL55KmucH6hP9zWdLIWY//OTfMnzz6xWQRxQqsUFefwHuHyg==" crossorigin="anonymous"></script>
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.12.9/umd/popper.min.js" integrity="sha384-ApNbgh9B+Y1QKtv3Rn7W3mgPxhU9K/ScQsAP7hUibX39j7fakFPskvXusvfa0b4Q" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+	<script type="text/javascript" src="https://unpkg.com/vis-network/standalone/umd/vis-network.min.js"></script>
+</head>
+
+<body>
+	<div class="container">
+		<h1>Evolve Solutions</h1>
+		<h2>EA Type</h2>
+		<div class="input-group mb-3">
+			<select class="custom-select" id="ga-model-select">
+				<option selected value="0">Standard</option>
+				<option value="1">Grid</option>
+				<option value="2">Island</option>
+			</select>
+		</div>
+		<div id="chart-settings">
+			<h2>Charts <svg id="chart-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" title="Add charts to visualize the state of the evolving population.">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></h2>
+			<button type="button" id="add-chart" class="btn btn-primary">Add Chart</button>
+		</div>
+		<br>
+        <div id="gen-out"></div>
+		<div class="row">
+            
+			<div id="charts"></div>
+            
+		</div>
+        <div id="grid-table"></div>
+		<!-- End of Charts -->
+		<!-- End of Individuals -->
+		<div id="standard-ga" class="row">
+			<div class="col-8">
+				<div class="dropdown" style="display: inline;">
+					<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Load an EA <span class="caret"></span> </button>
+					<ul id="ga-list" class="dropdown-menu">
+						<input class="form-control" id="ga-list-search" type="text" placeholder="Search.."> </ul>
+				</div>
+				<svg id="load-ga-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" title="Load the EA parameters of a standard EA">
+					<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+					<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" /> </svg>
+				<h2>Payoffs</h2>
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">R</span> </div>
+					<input id="r-payoff" type="number" value="3" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">S</span> </div>
+					<input id="s-payoff" type="number" value="0" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">T</span> </div>
+					<input id="t-payoff" type="number" value="5" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">P</span> </div>
+					<input id="p-payoff" type="number" value="1" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+				<br>
+				<h2>EA Parameters</h2>
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Generations</span> </div>
+					<input id="gens" type="number" value="10" pattern="[0-9]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+				<h2>Initialization</h2>
+				<p id="decision">Decision Bits: <span id="decision-operator">Blank Operator</span> </p>
+				<p id="history">History Bits: <span id="history-operator">
+																	<span>Blank Operator</span> </p>
+				<h2>Evolution</h2>
+				<p id="crossover">Crossover: <span id="crossover-operator">Blank Operator</span> </p>
+				<p id="mutation">Mutation: <span id="mutation-operator">Blank Operator</span> </p>
+				<p id="objective">Objective: <span id="objective-operator">Blank Operator</span> </p>
+				<p id="selection">Selection: <span id="selection-operator">Blank Operator</span> </p> 
+                
+                <button type="button" id="run-grid" class="btn btn-primary"style="display: none;">Run Grid EA</button>
+                <button type="button" id="run-button" class="btn btn-primary">Run Standard EA</button>
+                <a class="btn btn-primary" id="save-button">Save EA</a>
+				<div style="display: none;" class="alert alert-danger" role="alert" id="run-alert-par"> <span onclick="$('#run-alert-pay').hide();">
+																		<strong>X</strong>
+																	</span> <span id="run-alert-message-par">Not all parameters have been set!</span> </div>
+				<div style="display: none;" class="alert alert-danger" role="alert" id="run-alert-pay"> <span onclick="$('#run-alert-pay').hide();">
+																		<strong>X</strong>
+																	</span> <span id="run-alert-message-pay">Not all payoffs have been set!</span> </div>
+				<div style="display: none;" class="alert alert-danger" role="alert" id="run-alert-op"> <span onclick="$('#run-alert-op').hide();">
+																		<strong>X</strong>
+																	</span> <span id="run-alert-message-op">Not all operators have been set!</span> </div>
+			</div>
+			<div id="algorithm-settings" class="col-4">
+				<h2>Settings</h2>
+				<div id="menu"></div>
+			</div>
+		</div>
+        <div style="display: none;" id="island-ga" class="">
+            <h2>EA Parameters</h2>
+           
+				<div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Generations</span> </div>
+					<input id="gens-island" type="number" value="20" pattern="[0-9]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+                
+            <div class="input-group">
+					<div class="input-group-prepend"> <span class="input-group-text">Migrate Generation</span> </div>
+					<input id="gens-migrate-island" type="number" value="10" pattern="[0-9]" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> 
+                </div>
+                
+                
+            <div class="dropdown" style="display: inline;">
+				<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Add an Island <span class="caret"></span> </button>
+				<ul id="ga-list-island" class="dropdown-menu">
+                    <input class="form-control" id="ga-list-search-island" type="text" placeholder="Search...">
+                </ul>
+			</div>
+            
+            <div class="row">
+            <div id="islands" class="col-8">
+            </div>
+            <div id="islandSettings" class="col-4">
+                
+            </div>
+            </div>
+            
+            <br>
+            <button type="button" id="remove-last-island" class="btn btn-primary">Remove Last Island</button>
+            <button type="button" id="run-island" class="btn btn-primary">Run Island EA</button>
+
+        </div>
+		<div id="add"></div>
+		<div id="console"></div>
+		<!-- Modal -->
+		<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+			<div class="modal-dialog" role="document">
+				<div class="modal-content">
+					<div class="modal-header">
+						<h5 class="modal-title">Enter a name for the algorithm</h5>
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"> <span aria-hidden="true">&times;</span> </button>
+					</div>
+					<div class="modal-body">
+						<div class="input-group">
+							<div class="input-group-prepend"> <span class="input-group-text">Name</span> </div>
+							<input id="ga-name" type="text" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+						<button type="button" id="save-name" class="btn btn-primary">Save algorithm</button>
+						<div id="modal-error"></div>
+					</div>
+				</div>
+			</div>
+		</div>
+		<br>
+		<div>
+			<button type="button" id="toggle-exports" class="btn btn-primary">Toggle Exports</button>
+		</div>
+		<div id="final-exports"> </div>
+		<br>
+        <!--
+		<div id="load-init-pop">
+			<h4>Load Initial Population <svg id="load-pop-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" title="Load individuals or populations (as a JSON) as the initial population. This overrides any initial population.">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></h4>
+			<input type="file" class="form-control" id="ind-in-pop" multiple>
+			<button type="button" id="load-individuals-pop" class="btn btn-primary">Load Individuals</button>
+			<button type="button" id="remove-load-individuals-pop" class="btn btn-primary">Remove All Loaded Individuals for Initialization</button>
+			<div id="load-out-pop"></div>
+		</div>
+        -->
+		<h1 id="evaluate-title">Evaluate Solutions</h1>
+		<h4>Evaluate in a Tournament</h4>
+		<p>
+			<input type="checkbox" id="tourn-duplicate"> Add additional copy?
+			<svg id="copy-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" title="Adds an extra strategy of each selected strategy into the tournament">
+				<path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z" />
+				<path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z" /> </svg>
+		</p>
+		<h5>Select Predefined Strategies</h5>
+		<button type="button" id="select-axelrod" class="btn btn-primary">Select All Predefined Strategies</button>
+		<button type="button" id="deselect-axelrod" class="btn btn-primary">Deselect All Predefined Strategies</button>
+		<ul class="list-group" id="list-axelrod"> </ul>
+		<h5>Select Loaded Strategies</h5>
+		<h4>Load Individuals to Evaluate <svg id="load-eval-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" 
+        title="Load individuals or populations (as a JSON) to evaluate.">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></h4>
+		<input type="file" class="form-control" id="ind-in" multiple>
+		<button type="button" id="load-individuals" class="btn btn-primary">Load Individuals</button>
+		<button type="button" id="remove-load-individuals" class="btn btn-primary">Remove All Loaded Individuals for Evaluation</button>
+		<div id="load-out"></div>
+		<button type="button" id="refresh-loaded" class="btn btn-primary">Refresh Loaded Strategies</button>
+		<button type="button" id="select-loaded" class="btn btn-primary">Select All Loaded Strategies</button>
+		<button type="button" id="deselect-loaded" class="btn btn-primary">Deselect All Loaded Strategies</button>
+		<button type="button" id="toggle-loaded" class="btn btn-primary">Toggle Loaded Strategies</button>
+		<ul class="list-group" id="list-loaded"> </ul>
+		<br/>
+		<button type="button" id="eval-individuals" class="btn btn-primary">Evaluate Individuals</button>
+		<div id="eval-results"> </div> <a href="#evaluate-title">Jump to top of Evaluate</a>
+		<br>
+		<button type="button" id="tournament-csv" class="btn btn-primary">Export Evaluation to CSV</button>
+		<h2>Evaluate Head to Head <svg id="hh-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" 
+        title="Have one strategy play 150 rounds of IPD against another.">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></h2>
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select First Strategy <span class="caret"></span> </button>
+			<ul id="strat-list-1" class="dropdown-menu">
+				<input class="form-control" id="strat-list-search-1" type="text" placeholder="Search.."> </ul>
+		</div>
+		<p>Strategy 1: <span id="strat-1"></span></p>
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Second Strategy <span class="caret"></span> </button>
+			<ul id="strat-list-2" class="dropdown-menu">
+				<input class="form-control" id="strat-list-search-2" type="text" placeholder="Search.."> </ul>
+		</div>
+		<p>Strategy 2: <span id="strat-2"></span></p>
+		<button type="button" id="run-match" class="btn btn-primary">Run Match</button>
+		<h3>Game States from Strategy 1's Perspective <svg id="network-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" 
+        title="View a flow of game states based a number of past payoffs (based on State Size) generated by the strategies.">
+  <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+  <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+</svg></h3>
+		<div class="input-group">
+			<div class="input-group-prepend"> <span class="input-group-text">State Size</span> </div>
+			<input id="state-size" type="number" value="3" class="form-control" aria-label="Default" aria-describedby="inputGroup-sizing-default"> </div>
+	</div>
+	<div id="network-container" class="container">
+		<div id="network" style="width: 100%; height: 400px"></div>
+	</div>
+	<div id="match-chart-container" class="container">
+		<canvas id="match-chart"></canvas>
+	</div>
+	<div class="container">
+		<h2>Evaluate as a Player <svg id="play-i" xmlns="http://www.w3.org/2000/svg" width="16" height="16" fill="currentColor" class="bi bi-info-circle" viewBox="0 0 16 16" data-toggle="tooltip" data-placement="right" 
+        title="Play against a strategy in the IPD.">
+    <path d="M8 15A7 7 0 1 1 8 1a7 7 0 0 1 0 14zm0 1A8 8 0 1 0 8 0a8 8 0 0 0 0 16z"/>
+    <path d="m8.93 6.588-2.29.287-.082.38.45.083c.294.07.352.176.288.469l-.738 3.468c-.194.897.105 1.319.808 1.319.545 0 1.178-.252 1.465-.598l.088-.416c-.2.176-.492.246-.686.246-.275 0-.375-.193-.304-.533L8.93 6.588zM9 4.5a1 1 0 1 1-2 0 1 1 0 0 1 2 0z"/>
+    </svg></h2>
+		<div class="dropdown">
+			<button class="btn btn-primary dropdown-toggle" type="button" data-toggle="dropdown">Select Strategy <span class="caret"></span> </button>
+			<ul id="strat-list-3" class="dropdown-menu">
+				<input class="form-control" id="strat-list-search-3" type="text" placeholder="Search.."> </ul>
+		</div>
+		<p>Strategy: <span id="strat-3"></span></p>
+		<div id="interact-ipd"> </div>
+	</div>
+</body>
+
+</html>

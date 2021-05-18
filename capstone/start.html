@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<title>Start</title>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css" integrity="sha384-JcKb8q3iqJ61gNV9KGb8thSsNjpSL0n8PARn9HuZOnIxN0hoP+VmmDGMN5t9UJ0Z" crossorigin="anonymous">  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+	<style>
+	.border {
+		padding: 3px;
+		margin: 1px;
+	}
+	</style>
+</head>
+<body>
+  
+<div class="container">
+	<div class="row">
+		<button type="button" class="btn btn-info">Run Algorithm</button>
+		<button type="button" class="btn btn-info">Run Tests</button>
+	</div>
+	<div class="row">
+		<div class="col-md-8">
+			<h2>Current Algorithm Settings</h2>
+			<div class="border border-dark">
+				<p><button type="button" class="btn btn-info">Expand</button> 0 Enviroment &#60;droppable enviroment module&#62;</p>
+				<p>Generations Limit: X   Population Size: X   ...</p>
+			</div>
+			<div class="border border-dark">
+				<p><button type="button" class="btn btn-info">Expand</button> 1 Initialization &#60;droppable initialization module&#62;</p>
+				<p>Partitions...</p>
+				<p>Genome Initialization</p>
+				<p>History Initialization</p>
+				<p>Payoff Initialization</p>
+				<p>Objective Function</p>
+				<p>Objective Args</p>
+			</div>
+			<div class="border border-dark">
+				<p><button type="button" class="btn btn-info">Expand</button> 1 Parent Selection &#60;droppable parent selection module&#62;</p>
+				<p>Partitions...</p>
+				<p>Selection Function</p>
+				<p>Selection Args</p>				
+			</div>
+			<div class="border border-dark">
+				<p><button type="button" class="btn btn-info">Expand</button> 1 Crossover &#60;droppable crossover module&#62;</p>
+				<p>Partitions...</p>
+				<p>Crossover Function</p>
+				<p>Crossover Args</p>	
+			</div>
+			<div class="border border-dark">
+				<p><button type="button" class="btn btn-info">Expand</button> 1 Mutation &#60;droppable mutation module&#62;</p>
+				<p>Partitions...</p>
+				<p>Mutation Function</p>
+				<p>Mutation Args</p>	
+			</div>
+			<div class="border border-dark">
+				<p><button type="button" class="btn btn-info">Expand</button> 1 Population Selection &#60;droppable population selection module&#62;</p>
+				<p>Partitions...</p>
+				<p>Selection Function</p>
+				<p>Selection Args</p>
+			</div>
+		</div>
+		<div class="col-md-4" style="border-left: 2px solid black;">
+			<h2>Modules</h2>
+			<input type="text" class="form-control" id="search" aria-describedby="module-search" placeholder="Search">
+			
+			<div class="border border-dark">
+			<p>Enviroments <button type="button" class="btn btn-info">Expand</button> <button type="button" class="btn btn-info">Add</button></p>
+			<p><span class="border border-dark">Draggable Enviroment 1</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Enviroment 2</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Enviroment 3</span> <button type="button" class="btn btn-info">Edit</button></p>
+			</div>
+			
+			<div class="border border-dark">
+			<p>Initialization <button type="button" class="btn btn-info">Expand</button> <button type="button" class="btn btn-info">Add</button></p>
+			<p><span class="border border-dark">Draggable Init 1</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Init 2</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Init 3</span> <button type="button" class="btn btn-info">Edit</button></p>
+			</div>
+			
+			<div class="border border-dark">
+			<p>Parent Selection <button type="button" class="btn btn-info">Expand</button> <button type="button" class="btn btn-info">Add</button></p>
+			<p><span class="border border-dark">Draggable Par Sel 1</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Par Sel 2</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Par Sel 3</span> <button type="button" class="btn btn-info">Edit</button></p>
+			</div>
+			
+			<div class="border border-dark">
+			<p>Crossover <button type="button" class="btn btn-info">Expand</button> <button type="button" class="btn btn-info">Add</button></p>
+			<p><span class="border border-dark">Draggable CX 1</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable CX 2</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable CX 3</span> <button type="button" class="btn btn-info">Edit</button></p>
+			</div>
+			
+			<div class="border border-dark">
+			<p>Mutation <button type="button" class="btn btn-info">Expand</button> <button type="button" class="btn btn-info">Add</button></p>
+			<p><span class="border border-dark">Draggable Mutation 1</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Mutation 2</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Mutation 3</span> <button type="button" class="btn btn-info">Edit</button></p>
+			</div>
+			
+			<div class="border border-dark">
+			<p>Population Selection <button type="button" class="btn btn-info">Expand</button> <button type="button" class="btn btn-info">Add</button></p>
+			<p><span class="border border-dark">Draggable Pop Sel 1</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Pop Sel 2</span> <button type="button" class="btn btn-info">Edit</button></p>
+			<p><span class="border border-dark">Draggable Pop Sel 3</span> <button type="button" class="btn btn-info">Edit</button></p>
+			</div>
+		</div>
+	</div>
+	
+</div>
+
+</body>
+</html>
